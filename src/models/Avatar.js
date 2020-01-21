@@ -12,3 +12,4 @@ class Avatar {
     @attribute()
     s3Key: string;
 }
+module.exports = Avatar;

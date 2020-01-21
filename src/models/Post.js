@@ -11,7 +11,7 @@ class Post {
     @hashKey()
     id: string;
 
-    @rangeKey({defaultProvider: () => new Date()})
+    @attribute({defaultProvider: () => new Date()})
     timestamp: Date;
 
     @attribute()
@@ -26,3 +26,4 @@ class Post {
     @attribute()
     tags: string[];
 }
+module.exports = Post;
