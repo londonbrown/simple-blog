@@ -1,0 +1,41 @@
+{
+  "name": "simple-blog",
+  "version": "0.0.1",
+  "description": "A simple blog deployed to AWS",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "flow": "flow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lahiyam/simple-blog.git"
+  },
+  "keywords": [
+    "blog",
+    "aws",
+    "serverless"
+  ],
+  "author": "lahiyam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lahiyam/simple-blog/issues"
+  },
+  "homepage": "https://github.com/lahiyam/simple-blog#readme",
+  "dependencies": {
+    "@aws/dynamodb-data-mapper": "^0.7.3",
+    "@aws/dynamodb-data-mapper-annotations": "^0.7.3",
+    "aws-sdk": "^2.607.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-flow": "^7.8.3",
+    "@types/node": "^13.1.8",
+    "flow-bin": "^0.116.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}

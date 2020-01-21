@@ -1,48 +1,28 @@
+import {
+    attribute,
+    hashKey,
+    rangeKey,
+    table,
+} from '@aws/dynamodb-data-mapper-annotations';
+
+@table("posts")
 class Post {
-    _id;
-    _title;
-    _author;
-    _content;
-    _tags;
 
+    @hashKey()
+    id: string;
 
-    get id() {
-        return this._id;
-    }
+    @rangeKey({defaultProvider: () => new Date()})
+    timestamp: Date;
 
-    set id(value) {
-        this._id = value;
-    }
+    @attribute()
+    title: string;
 
-    get title() {
-        return this._title;
-    }
+    @attribute()
+    author: string;
 
-    set title(value) {
-        this._title = value;
-    }
+    @attribute()
+    content: string;
 
-    get author() {
-        return this._author;
-    }
-
-    set author(value) {
-        this._author = value;
-    }
-
-    get content() {
-        return this._content;
-    }
-
-    set content(value) {
-        this._content = value;
-    }
-
-    get tags() {
-        return this._tags;
-    }
-
-    set tags(value) {
-        this._tags = value;
-    }
+    @attribute()
+    tags: string[];
 }

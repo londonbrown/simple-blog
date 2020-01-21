@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb3ba623-5309-411a-8c31-bee72f4df242" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daos/PostDao.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daos/UserDao.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handlers/Post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handlers/User.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/clients/DynamoDBClient.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/daos/DynamoDBMapper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/Avatar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/User.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +26,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1WgvXNWzQ5x7sKf4UlqN8lSHQVm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -40,14 +44,18 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="aws" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="ts.external.directory.path" value="C:\Users\londo\AppData\Local\JetBrains\Toolbox\apps\IDEA-U\ch-0\193.5662.53\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\londo\IdeaProjects\simple-blog\src\clients" />
+      <recent name="C:\Users\londo\IdeaProjects\simple-blog\src\DynamoDBClient" />
       <recent name="C:\Users\londo\IdeaProjects\simple-blog" />
     </key>
   </component>
@@ -101,7 +109,9 @@
       <option name="presentableId" value="Default" />
       <updated>1579584090624</updated>
       <workItem from="1579584093129" duration="408000" />
-      <workItem from="1579584846940" duration="3856000" />
+      <workItem from="1579584846940" duration="4770000" />
+      <workItem from="1579591511905" duration="1645000" />
+      <workItem from="1579593181727" duration="884000" />
     </task>
     <servers />
   </component>
@@ -149,13 +159,13 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1876" height="389" key="GridCell.Tab.0.right/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579588244570" />
-    <state x="673" y="259" key="SettingsEditor" timestamp="1579589170450">
+    <state x="673" y="259" width="1640" height="883" key="SettingsEditor" timestamp="1579592976055">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="673" y="259" key="SettingsEditor/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579589170450" />
-    <state x="906" y="484" key="com.intellij.ide.util.TipDialog" timestamp="1579584847309">
+    <state x="673" y="259" width="1640" height="883" key="SettingsEditor/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579592976055" />
+    <state x="906" y="484" key="com.intellij.ide.util.TipDialog" timestamp="1579593182045">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="906" y="484" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579584847309" />
+    <state x="906" y="484" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579593182045" />
   </component>
 </project>

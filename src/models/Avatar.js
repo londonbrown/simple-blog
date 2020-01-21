@@ -4,14 +4,11 @@ import {
     table
 } from '@aws/dynamodb-data-mapper-annotations';
 
-@table("users")
-class User {
+@table("avatars")
+class Avatar {
     @hashKey()
     id: string;
 
     @attribute()
-    displayName: string;
-
-    @attribute()
-    avatarId: string
+    s3Key: string;
 }
