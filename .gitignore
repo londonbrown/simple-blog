@@ -31,6 +31,7 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 
+
 # node-waf configuration
 .lock-wscript
 
@@ -225,9 +226,9 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-
 # Windows shortcuts
 *.lnk
 
 
 # End of https://www.gitignore.io/api/osx,node,linux,windows
+.aws-sam/
