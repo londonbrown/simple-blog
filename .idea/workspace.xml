@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cb3ba623-5309-411a-8c31-bee72f4df242" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1WgvXNWzQ5x7sKf4UlqN8lSHQVm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="[Local] HelloWorldFunction" type="aws.lambda" factoryName="Local" nameIsGenerated="true">
+      <option name="credentialProviderId" />
+      <option name="regionId" />
+      <option name="debugHost" value="localhost" />
+      <option name="environmentVariables">
+        <map />
+      </option>
+      <option name="handler" />
+      <option name="logicalFunctionName" value="HelloWorldFunction" />
+      <option name="memorySize" value="128" />
+      <option name="runtime" />
+      <option name="templateFile" value="$PROJECT_DIR$/template.yaml" />
+      <option name="timeout" value="300" />
+      <option name="useTemplate" value="true" />
+      <option name="input" />
+      <option name="inputIsFile" value="false" />
+      <sam>
+        <option name="additionalBuildArgs" />
+        <option name="additionalLocalArgs" />
+        <option name="buildInContainer" value="false" />
+        <option name="dockerNetwork" />
+        <option name="skipImagePull" value="false" />
+      </sam>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb3ba623-5309-411a-8c31-bee72f4df242" name="Default Changelist" comment="" />
+      <created>1579584090624</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579584090624</updated>
+      <workItem from="1579584093129" duration="408000" />
+      <workItem from="1579584846940" duration="1698000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="772" y="272" key="#Notifications" timestamp="1579584394848">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="772" y="272" key="#Notifications/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579584394848" />
+    <state x="960" y="416" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1579584332205">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="960" y="416" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579584332205" />
+    <state x="906" y="484" key="com.intellij.ide.util.TipDialog" timestamp="1579584847309">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="906" y="484" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/309.-1080.1920.1040@0.0.2560.1400" timestamp="1579584847309" />
+  </component>
+</project>
