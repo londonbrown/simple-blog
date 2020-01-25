@@ -1,0 +1,56 @@
+{
+  "name": "simple-blog",
+  "version": "0.0.1",
+  "description": "A simple blog deployed to AWS",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "webpack-cli",
+    "watch": "webpacl-cli -w",
+    "clean": "rimraf .aws-sam",
+    "test": "echo \\\\\\\"Error: no test specified\\\\\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lahiyam/simple-blog.git"
+  },
+  "keywords": [
+    "blog",
+    "aws",
+    "serverless"
+  ],
+  "author": "lahiyam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lahiyam/simple-blog/issues"
+  },
+  "homepage": "https://github.com/lahiyam/simple-blog#readme",
+  "dependencies": {
+    "@aws/dynamodb-data-mapper": "^0.7.3",
+    "@aws/dynamodb-data-mapper-annotations": "^0.7.3",
+    "aws-sdk": "^2.608.0",
+    "source-map-support": "^0.5.16",
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@aws/dynamodb-expressions": "^0.7.3",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-flow": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/aws-lambda": "^8.10.40",
+    "@types/node": "^13.1.8",
+    "aws-sam-webpack-plugin": "^0.5.1",
+    "babel-loader": "^8.0.6",
+    "flow-bin": "^0.116.1",
+    "ts-loader": "^6.2.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "yaml-cfn": "^0.2.3"
+  }
+}
