@@ -7,7 +7,7 @@ import 'source-map-support/register';
 const postDao = new PostDao(DynamoDBMapper);
 
 export const index: APIGatewayProxyHandler = async (event, _context) => {
-
+    console.log("London is great");
     const {httpMethod} = event;
 
     let queryEvent;

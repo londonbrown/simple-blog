@@ -3,11 +3,13 @@ service:
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
-
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: false
 # Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
-  - serverless-babel-plugin
   - serverless-offline
 
 provider:
@@ -34,3 +36,6 @@ functions:
       - http:
           method: any
           path: user
+
+package:
+  individually: true

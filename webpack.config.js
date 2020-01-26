@@ -1,22 +1,30 @@
 const path = require('path');
 const slsw = require('serverless-webpack');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
+  externals: [nodeExternals()],
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    extensions: ['.js', '.json', '.ts'],
   },
   output: {
-    libraryTarget: 'commonjs2',
+    libraryTarget: "commonjs2",
     path: path.join(__dirname, '.webpack'),
     filename: '[name].js',
+    sourceMapFilename: "[file].map"
   },
   optimization: {
     minimize: false
   },
   target: 'node',
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
+    poll: 3000
+  },
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`

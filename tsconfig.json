@@ -8,5 +8,5 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true
   },
-  "exclude": ["node_modules", "old"]
+  "exclude": ["node_modules", "test"]
 }
