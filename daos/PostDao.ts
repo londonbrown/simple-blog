@@ -1,5 +1,5 @@
 import {DataMapper} from "@aws/dynamodb-data-mapper/build/DataMapper";
-//import {greaterThan} from "@aws/dynamodb-expressions";
+import {greaterThanOrEqualTo} from "@aws/dynamodb-expressions";
 
 import Post from "../models/Post";
 
@@ -9,28 +9,40 @@ export default class PostDao {
         this.dynamoDBMapper = dynamoDBMapper;
     }
 
-    async getPost(id: string) {
+    async getPost(id: string): Promise<Post> {
         try {
             let post = await this.dynamoDBMapper.get(Object.assign(new Post, {
                 id: id
             }));
-            post.tags = Array.from(post.tags);
+            if (post.tags) {
+                post.tags = Array.from(post.tags);
+            }
             return post;
         } catch (e) {
             console.error("\n\nAN ERROR OCCURRED\n\n", e);
         }
     }
 
-    async getPostsByUser(userId: string, createdAt?: number) {
-
-        console.log(userId, createdAt);
-       /* if (!createdAt) {
-            // get timestamp of 7 days ago
+    async getPostsByUser(userId: string, createdAt?: number): Promise<Array<Post>> {
+        const sevenDaysEpoch = 604800000;
+        createdAt = createdAt ? createdAt : Date.now() - sevenDaysEpoch;
+        try {
+            let posts = new Array<Post>();
+            for await (const post of this.dynamoDBMapper.query(Post, {
+                userId: userId,
+                createdAt: greaterThanOrEqualTo(createdAt)
+            }, {
+                indexName: 'userId-createdAt-index'
+            })) {
+                if (post.tags) {
+                    post.tags = Array.from(post.tags);
+                }
+                posts.push(post)
+            }
+            return posts;
+        } catch (e) {
+            console.error("\n\nAN ERROR OCCURRED\n\n", e);
         }
-        return this.dynamoDBMapper.query(Post, {
-            "partitionKey": userId,
-            "rangeKey": greaterThan(createdAt)
-        })*/
     }
 
     async savePost(post: Post) {

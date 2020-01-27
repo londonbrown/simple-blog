@@ -1,53 +1,98 @@
 import PostDao, {Post} from './../../daos/PostDao';
+
+const chalk = require("chalk");
 const sinon = require("sinon");
 import { expect } from 'chai';
-import 'mocha'
-import {DataMapper} from "@aws/dynamodb-data-mapper";
+import DynamoDBMapper from "../../daos/DynamoDBMapper";
+import {QueryIterator} from "@aws/dynamodb-query-iterator";
 
 let postDao;
-
-const mapper = sinon.mock(DataMapper);
-mapper.get = () => "getMethod";
 
 const expectedPostId = "aas1-bbb000-000-1ddd";
 const expectedCreatedAt = 1234567890;
 const expectedTitle = "Test title";
-const expectedUserId = "012-example-userId";
+const expectedUserId = "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b";
 const content = "Lorem ipsum and random words";
 const expectedTags = [
     "blog",
     "test"
 ];
 
+const sandbox = sinon.createSandbox();
+let mapper;
+let mockDynamoDbClient;
+
 beforeEach(() => {
-    console.log("\nSTARTING NEXT TEST\n");
+    sandbox.restore();
+    mockDynamoDbClient = {
+        config: {},
+        query: sandbox.fake()
+    };
+    mapper = sandbox.stub(DynamoDBMapper);
+    //mapper = DynamoDBMapper;
     postDao = new PostDao(mapper);
 });
 
-describe("Test Suite: getPost ", async () => {
-
-    it('getPost_happyCase', async () => {
-        // Given
-        const expectedPost = new Post();
-
-        expectedPost.id = expectedPostId;
-        expectedPost.createdAt = expectedCreatedAt;
-        expectedPost.title = expectedTitle;
-        expectedPost.content = content;
-        expectedPost.userId = expectedUserId;
-        expectedPost.tags = expectedTags;
-
-        const get = sinon.stub(mapper, "get");
-        get.returns(expectedPost);
-
-        // When
-        const actualPost = await postDao.getPost("1");
-
-        // Then
-        expect(actualPost).to.equal(expectedPost);
-
-    });
-
-
+afterEach(() => {
+    sandbox.restore();
 });
 
+describe("PostDao", async function() {
+    context("Happy Cases", function() {
+        it('getPost_happyCase', async function() {
+            console.log(chalk.bold.blue("\nPostDao Tests"));
+            console.log(chalk.bold.yellow("\ngetPost_happyCase Test"));
+            // Given
+            const expectedPost = new Post();
+
+            expectedPost.id = expectedPostId;
+            expectedPost.createdAt = expectedCreatedAt;
+            expectedPost.title = expectedTitle;
+            expectedPost.content = content;
+            expectedPost.userId = expectedUserId;
+            expectedPost.tags = expectedTags;
+
+            mapper.get.returns(expectedPost);
+
+            // When
+            const actualPost = await postDao.getPost("1");
+
+            // Then
+            expect(actualPost).to.equal(expectedPost);
+            console.log(chalk.bold.green("\nExpected"), expectedPost);
+            console.log(chalk.bold.green("\nActual"), actualPost);
+        });
+
+        it('getPostsByUser_validUser_returnsMultiplePostsFromUser', async function () {
+            const testPostOne = new Post();
+
+            testPostOne.id = expectedPostId;
+            testPostOne.createdAt = expectedCreatedAt;
+            testPostOne.title = expectedTitle;
+            testPostOne.content = content;
+            testPostOne.userId = expectedUserId;
+            testPostOne.tags = expectedTags;
+
+            const testPostTwo = new  Post();
+            testPostTwo.id = "12345-abcdef-098776";
+            testPostTwo.createdAt = 9876543210;
+            testPostTwo.title = "Another post test example";
+            testPostTwo.content = "Test content";
+            testPostTwo.userId = expectedUserId;
+            testPostTwo.tags = expectedTags;
+
+            const expectedPosts = [testPostOne, testPostTwo];
+
+            // When
+            const queryIterator = {};
+            queryIterator[Symbol.iterator] = sandbox.fake(() => [testPostOne, testPostTwo].values());
+            mapper.query.returns(queryIterator);
+            const actualPosts = await postDao.getPostsByUser(expectedUserId, expectedCreatedAt);
+
+            // Then
+            for (let post of actualPosts.values()) {
+                expect(expectedPosts).to.contain(post);
+            }
+        });
+    })
+});

@@ -1,5 +1,6 @@
 import UserDao, {User} from "../../daos/UserDao";
 
+const chalk = require("chalk");
 const sinon = require("sinon");
 import { expect } from 'chai';
 import 'mocha'
@@ -15,13 +16,14 @@ const mapper = sinon.mock(DataMapper);
 mapper.get = () => "getMethod";
 
 beforeEach(() => {
-    console.log("\nSTARTING NEXT TEST\n");
     userDao = new UserDao(mapper);
 });
 
-describe("Test Suite: UserDao ", () => {
-    context("getPost", () => {
-        it('getPost_happyCase', async () => {
+describe("UserDao ", async function() {
+    context("Happy Cases", function() {
+        it('getUser_happyCase', async function() {
+            console.log(chalk.bold.blue("\nUserDao Tests"));
+            console.log(chalk.bold.yellow("\ngetUser_happyCase Test"));
             // Given
             const expectedUser = new User();
             expectedUser.id = expectedId;
@@ -36,9 +38,8 @@ describe("Test Suite: UserDao ", () => {
 
             // Then
             expect(actualUser).to.equal(expectedUser);
-
+            console.log(chalk.bold(chalk.green("\nExpected")), expectedUser);
+            console.log(chalk.bold(chalk.green("\nActual")), actualUser);
         });
-    })
-
-
+    });
 });

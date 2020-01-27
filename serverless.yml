@@ -6,10 +6,11 @@ service:
 custom:
   webpack:
     webpackConfig: 'webpack.config.js'
-    includeModules: false
+    includeModules: true
 # Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
+  - serverless-mocha-plugin
   - serverless-offline
 
 provider:
