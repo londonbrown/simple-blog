@@ -21,10 +21,6 @@ module.exports = {
   },
   target: 'node',
   watch: true,
-  watchOptions: {
-    ignored: /node_modules/,
-    poll: 3000
-  },
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`

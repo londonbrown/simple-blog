@@ -5,6 +5,7 @@ import Post from "../models/Post";
 
 export default class PostDao {
     dynamoDBMapper: DataMapper;
+    static TAG = "[PostDao]: ";
     constructor(dynamoDBMapper: DataMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
     }
@@ -19,7 +20,7 @@ export default class PostDao {
             }
             return post;
         } catch (e) {
-            console.error("\n\nAN ERROR OCCURRED\n\n", e);
+            console.error(PostDao.TAG, "An error occurred", e);
         }
     }
 
@@ -41,7 +42,7 @@ export default class PostDao {
             }
             return posts;
         } catch (e) {
-            console.error("\n\nAN ERROR OCCURRED\n\n", e);
+            console.error(PostDao.TAG, "An error occurred", e);
         }
     }
 
@@ -50,7 +51,7 @@ export default class PostDao {
             console.log(`Post saved to DynamoDB`, objectSaved);
             return objectSaved;
         }).catch(err => {
-            console.error("An error occured saving Post", post, err);
+            console.error(PostDao.TAG, "An error occured saving Post", post, err);
             return null;
         });
     }

@@ -22,21 +22,21 @@ functions:
   hello:
     handler: handlers/HelloHandler.hello
     events:
-      - http:
-          method: get
-          path: hello
+      - http: GET hello
   post:
     handler: handlers/PostHandler.index
     events:
-      - http:
-          method: any
-          path: post
+      - http: GET post
+      - http: POST post
+      - http: PUT post
+      - http: DELETE post
   user:
     handler: handlers/UserHandler.index
     events:
-      - http:
-          method: any
-          path: user
+      - http: GET user
+      - http: POST user
+      - http: PUT user
+      - http: DELETE user
 
 package:
   individually: true

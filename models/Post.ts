@@ -15,10 +15,10 @@ export default class Post {
             "userId-createdAt-index": "RANGE"
         }
     })
-    createdAt: number;
+    createdAt?: number;
 
     @attribute()
-    title: string;
+    title?: string;
 
     @attribute({
         indexKeyConfigurations: {
@@ -28,7 +28,7 @@ export default class Post {
     userId: string;
 
     @attribute()
-    content: string;
+    content?: string;
 
     @attribute({members: [{type: "String"}]})
     tags?: Array<string>;
