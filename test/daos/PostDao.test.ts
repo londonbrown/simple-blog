@@ -64,6 +64,7 @@ describe("PostDao", async function() {
         });
 
         it('getPostsByUser_validUser_returnsMultiplePostsFromUser', async function () {
+            console.log(chalk.bold.yellow("\ngetPostsByUser_happyCase Test"));
             const testPostOne = new Post();
 
             testPostOne.id = expectedPostId;
@@ -93,6 +94,8 @@ describe("PostDao", async function() {
             for (let post of actualPosts.values()) {
                 expect(expectedPosts).to.contain(post);
             }
+            console.log(chalk.bold.green("\nExpected"), expectedPosts);
+            console.log(chalk.bold.green("\nActual"), actualPosts);
         });
     })
 });

@@ -28,7 +28,6 @@ describe("UserDao ", async function() {
             const expectedUser = new User();
             expectedUser.id = expectedId;
             expectedUser.username = expectedUsername;
-            expectedUser.email = expectedEmail;
 
             const get = sinon.stub(mapper, "get");
             get.returns(expectedUser);
