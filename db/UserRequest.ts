@@ -2,9 +2,9 @@ import {DataMapper} from "@aws/dynamodb-data-mapper";
 import User from "../models/User";
 const uuid = require("uuid/v4");
 
-export default class UserDao {
+export default class UserRequest {
     dynamoDBMapper: DataMapper;
-    static TAG = "[UserDao]: ";
+    static TAG = "[UserRequest]: ";
 
     constructor(dynamoDBMapper: DataMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
@@ -16,7 +16,7 @@ export default class UserDao {
                 id: id
             }));
         } catch (e) {
-            console.error(UserDao.TAG, "An error occurred", e);
+            console.error(UserRequest.TAG, "An error occurred", e);
             throw "An error occurred" + e;
         }
     }
@@ -34,7 +34,7 @@ export default class UserDao {
             }
             return null;
         } catch (e) {
-            console.error(UserDao.TAG, "An error occurred", e);
+            console.error(UserRequest.TAG, "An error occurred", e);
             throw "An error occurred retrieving a user by username" + e
         }
     }
@@ -50,20 +50,18 @@ export default class UserDao {
         if (existingUser) {
             throw "A user with the provided User object's username attribute already exists";
         }
-        const newUser = new User();
-        newUser.username = user.username;
-        newUser.id = uuid();
-        newUser.createdAt = Date.now();
-        return this.saveUser(newUser);
+        user.id = uuid();
+        user.createdAt = Date.now();
+        return this.saveUser(user);
     }
 
     async saveUser(user: User): Promise<User> {
         try {
             let objectSaved = await this.dynamoDBMapper.put(user);
-            console.log(UserDao.TAG, `User saved to DynamoDB`, await objectSaved);
+            console.log(UserRequest.TAG, `User saved to DynamoDB`, await objectSaved);
             return await objectSaved;
         } catch (e) {
-            console.error(UserDao.TAG, "An error occurred saving User", user, e);
+            console.error(UserRequest.TAG, "An error occurred saving User", user, e);
             throw "An error occurred saving User";
         }
     }

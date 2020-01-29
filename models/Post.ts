@@ -30,6 +30,6 @@ export default class Post {
     @attribute()
     content?: string;
 
-    @attribute({members: [{type: "String"}]})
+    @attribute({type: "Collection"})
     tags?: Array<string>;
 }

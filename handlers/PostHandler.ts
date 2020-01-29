@@ -1,10 +1,11 @@
-import PostDao, {Post} from "./../daos/PostDao";
-import DynamoDBMapper from "../daos/DynamoDBMapper";
+import PostRequest, {Post} from "../db/PostRequest";
+import DynamoDBMapper from "../db/DynamoDBMapper";
 
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
+import {attribute} from "@aws/dynamodb-data-mapper-annotations";
 
-const postDao = new PostDao(DynamoDBMapper);
+const postRequest = new PostRequest(DynamoDBMapper);
 
 export const index: APIGatewayProxyHandler = async (event, _context) => {
     try {
@@ -18,6 +19,12 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
                     queryEvent = await getPost(event);
                 }
             }
+        } else if (httpMethod.toLocaleUpperCase("PUT")) {
+            const body = JSON.parse(event.body);
+            queryEvent = await updatePost(body);
+        } else if (httpMethod.toLocaleUpperCase("POST")) {
+            const body = JSON.parse(event.body);
+            queryEvent = await createPost(body);
         } else {
             return {
                 statusCode: 400,
@@ -40,10 +47,46 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
 
 async function getPost(event): Promise<any> {
     if (event.queryStringParameters.hasOwnProperty("id")) {
-        return postDao.getPost(event.queryStringParameters.id);
+        return postRequest.getPost(event.queryStringParameters.id);
     } else if (event.queryStringParameters.hasOwnProperty("userId")) {
-        return postDao.getPostsByUser(event.queryStringParameters.userId, event.queryStringParameters.createdAt);
+        return postRequest.getPostsByUser(event.queryStringParameters.userId, event.queryStringParameters.createdAt);
     } else {
-        throw PostDao.TAG + "GET /post expects an id or userId parameter";
+        throw PostRequest.TAG + "GET /post expects an id or userId parameter";
     }
+}
+
+async function updatePost(body) {
+    if (!body.hasOwnProperty("userId")) {
+        throw Error("POST /post userId attribute not specified in request");
+    } else if (!body.hasOwnProperty("title")) {
+        throw Error("POST /post title attribute not specified in request");
+    } else if (!body.hasOwnProperty("content")) {
+        throw Error("POST /post content attribute not specified in request");
+    }
+    const post = new Post();
+    for (let attr of Object.keys(body)) {
+        console.log(typeof body[attr]);
+        post[attr] = body[attr];
+    }
+    return postRequest.updatePost(post);
+}
+
+async function createPost(body) {
+    // TODO check if userId exists
+    // TODO check if title is valid
+    // TODO sanitize inputs
+    if (!body.hasOwnProperty("userId")) {
+        throw Error("POST /post userId attribute not specified in request");
+    } else if (!body.hasOwnProperty("title")) {
+        throw Error("POST /post title attribute not specified in request");
+    } else if (!body.hasOwnProperty("content")) {
+        throw Error("POST /post content attribute not specified in request");
+    }
+    const post = new Post();
+    post.userId = body.userId;
+    post.title = body.title;
+    post.content = body.content;
+    post.tags = body.tags;
+    post.createdAt = body.createdAt;
+    return postRequest.createPost(post);
 }

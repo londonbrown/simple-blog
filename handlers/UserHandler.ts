@@ -1,11 +1,10 @@
-import UserDao, {User} from "./../daos/UserDao";
-import DynamoDBMapper from "../daos/DynamoDBMapper";
+import UserRequest, {User} from "../db/UserRequest";
+import DynamoDBMapper from "../db/DynamoDBMapper";
 
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
-import PostDao from "../daos/PostDao";
 
-const userDao = new UserDao(DynamoDBMapper);
+const userRequest = new UserRequest(DynamoDBMapper);
 
 export const index: APIGatewayProxyHandler = async (event, _context) => {
     try {
@@ -15,12 +14,8 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
         if (httpMethod.toLocaleUpperCase() === "GET") {
             queryEvent = await getUser(event);
         } else if (httpMethod.toLocaleUpperCase() === "POST") {
-            try {
-                const body = JSON.parse(event.body);
-                queryEvent = await createUser(body);
-            } catch (e) {
-                throw "Error processing body of request. " + e;
-            }
+            const body = JSON.parse(event.body);
+            queryEvent = await createUser(body);
         }
         else {
             return {
@@ -44,20 +39,20 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
 
 async function getUser(event): Promise<object> {
     if (event.queryStringParameters.hasOwnProperty('id')) {
-        return userDao.getUser(event.queryStringParameters.id);
+        return userRequest.getUser(event.queryStringParameters.id);
     } else if (event.queryStringParameters.hasOwnProperty('username')) {
-        return userDao.getUserByUsername(event.queryStringParameters.username)
+        return userRequest.getUserByUsername(event.queryStringParameters.username)
     } else {
-        throw UserDao.TAG + "GET /user expects an id or userId parameter"
+        throw UserRequest.TAG + "GET /user expects an id or userId parameter"
     }
 }
 
 async function createUser(body) {
     if (!body.hasOwnProperty("username")) {
-        throw PostDao.TAG + "POST /user Expected a username property in request"
+        throw UserRequest.TAG + "POST /user Expected a username property in request"
     }
     const username = body.username;
     const user = new User();
     user.username = username;
-    return userDao.createUser(user);
+    return userRequest.createUser(user);
 }

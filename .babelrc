@@ -8,10 +8,5 @@
     ["@babel/plugin-proposal-decorators",{ "legacy" : true}],
     ["@babel/plugin-proposal-class-properties", { "loose" : true }],
     "source-map-support"
-  ],
-  "env":  {
-    "testremoveme": {
-      "plugins": ["@babel/plugin-transform-modules-commonjs"]
-    }
-  }
+  ]
 }

@@ -1,9 +1,9 @@
-import PostDao, {Post} from './../../daos/PostDao';
+import PostRequest, {Post} from '../../db/PostRequest';
 
 const chalk = require("chalk");
 const sinon = require("sinon");
 import { expect } from 'chai';
-import DynamoDBMapper from "../../daos/DynamoDBMapper";
+import DynamoDBMapper from "../../db/DynamoDBMapper";
 import {QueryIterator} from "@aws/dynamodb-query-iterator";
 
 let postDao;
@@ -30,17 +30,17 @@ beforeEach(() => {
     };
     mapper = sandbox.stub(DynamoDBMapper);
     //mapper = DynamoDBMapper;
-    postDao = new PostDao(mapper);
+    postDao = new PostRequest(mapper);
 });
 
 afterEach(() => {
     sandbox.restore();
 });
 
-describe("PostDao", async function() {
+describe("PostRequest", async function() {
     context("Happy Cases", function() {
         it('getPost_happyCase', async function() {
-            console.log(chalk.bold.blue("\nPostDao Tests"));
+            console.log(chalk.bold.blue("\nPostRequest Tests"));
             console.log(chalk.bold.yellow("\ngetPost_happyCase Test"));
             // Given
             const expectedPost = new Post();

@@ -1,4 +1,4 @@
-import UserDao, {User} from "../../daos/UserDao";
+import UserRequest, {User} from "../../db/UserRequest";
 
 const chalk = require("chalk");
 const sinon = require("sinon");
@@ -10,19 +10,18 @@ let userDao;
 
 const expectedId = "01234-aaaa-zzzz";
 const expectedUsername = "expectedUsername";
-const expectedEmail = "user@example.com";
 
 const mapper = sinon.mock(DataMapper);
 mapper.get = () => "getMethod";
 
 beforeEach(() => {
-    userDao = new UserDao(mapper);
+    userDao = new UserRequest(mapper);
 });
 
-describe("UserDao ", async function() {
+describe("UserRequest", async function() {
     context("Happy Cases", function() {
         it('getUser_happyCase', async function() {
-            console.log(chalk.bold.blue("\nUserDao Tests"));
+            console.log(chalk.bold.blue("\nUserRequest Tests"));
             console.log(chalk.bold.yellow("\ngetUser_happyCase Test"));
             // Given
             const expectedUser = new User();
