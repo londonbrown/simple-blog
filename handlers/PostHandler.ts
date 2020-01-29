@@ -19,7 +19,7 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
                     queryEvent = await getPost(event);
                 }
             }
-        } else if (httpMethod.toLocaleUpperCase("PUT")) {
+        } else if (httpMethod.toLocaleUpperCase() === ("PUT")) {
             const body = JSON.parse(event.body);
             queryEvent = await updatePost(body);
         } else if (httpMethod.toLocaleUpperCase("POST")) {
