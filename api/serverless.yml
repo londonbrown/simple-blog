@@ -1,0 +1,77 @@
+service:
+  name: simple-blog
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules:
+      forceExclude:
+        - aws-sdk
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-mocha-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  timeout: 5
+  role: lambdaDynamoDbRole
+
+functions:
+  hello:
+    handler: handlers/HelloHandler.hello
+    events:
+      - http: GET hello
+  post:
+    handler: handlers/PostHandler.index
+    events:
+      - http: GET post
+      - http: POST post
+      - http: PUT post
+      - http: DELETE post
+  user:
+    handler: handlers/UserHandler.index
+    events:
+      - http: GET user
+      - http: POST user
+      - http: PUT user
+      - http: DELETE user
+
+resources:
+  Resources:
+    lambdaDynamoDbRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: lambdaDynamoDbRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+          - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccesswithDataPipeline
+        Policies:
+          - PolicyName: SimpleBlogPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - "s3:PutObject"
+                  Resource:
+                    Fn::Join:
+                      - ""
+                      - - "arn:aws:s3:::"
+                        - "Ref": "ServerlessDeploymentBucket"
+
+package:
+  individually: true

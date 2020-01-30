@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-typescript"
+  ],
+  "comments": false,
+  "plugins": [
+    ["@babel/plugin-proposal-decorators",{ "legacy" : true}],
+    ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": false,
+        "helpers": true,
+        "regenerator": true,
+        "useESModules": false,
+        "version": "7.0.0-beta.0"
+      }
+    ],
+    "source-map-support"
+  ]
+}
