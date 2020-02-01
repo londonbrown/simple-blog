@@ -1,13 +1,12 @@
 diff: true
 extension:
-  - 'ts'
+  - "ts"
 opts: false
-package: './package.json'
-reporter: 'mochawesome'
-ui: 'bdd'
+package: "./package.json"
+ui: "bdd"
 watch-files:
-  - 'spec/**/*.ts'
+  - "spec/**/*.ts"
 watch-ignore':
-  - 'node_modules'
-  - '.webpack'
-  - '.serverless'
+  - "node_modules"
+  - ".webpack"
+  - ".serverless"

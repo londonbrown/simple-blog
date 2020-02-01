@@ -1,9 +1,7 @@
-import {APIGateway} from "aws-sdk";
+import { APIGateway } from "aws-sdk";
 
 class APIGatewayClient {
-    constructor() {
-
-    }
+  constructor() {}
 }
 
 export default APIGatewayClient;

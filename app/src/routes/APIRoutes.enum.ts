@@ -1,7 +1,6 @@
-
 enum APIRoutesEnum {
-    POST = "/post",
-    USER = "/user"
+  POST = "/post",
+  USER = "/user"
 }
 
 export default APIRoutesEnum;

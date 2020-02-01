@@ -5,7 +5,7 @@ service:
 #org: your-org-name
 custom:
   webpack:
-    webpackConfig: 'webpack.config.js'
+    webpackConfig: "webpack.config.js"
     includeModules:
       forceExclude:
         - aws-sdk
@@ -49,7 +49,7 @@ resources:
         Path: /
         RoleName: lambdaDynamoDbRole
         AssumeRolePolicyDocument:
-          Version: '2012-10-17'
+          Version: "2012-10-17"
           Statement:
             - Effect: Allow
               Principal:
@@ -62,7 +62,7 @@ resources:
         Policies:
           - PolicyName: SimpleBlogPolicy
             PolicyDocument:
-              Version: '2012-10-17'
+              Version: "2012-10-17"
               Statement:
                 - Effect: Allow
                   Action:

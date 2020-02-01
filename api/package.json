@@ -7,7 +7,7 @@
     "offline": "serverless offline start",
     "package": "serverless package",
     "deploy": "serverless deploy",
-    "test": "mocha -r ts-node/register test/**/*.ts"
+    "test": "mocha -r ts-node/register spec/**/*.ts"
   },
   "dependencies": {
     "@aws/dynamodb-auto-marshaller": "^0.7.1",

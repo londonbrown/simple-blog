@@ -1,0 +1,17 @@
+{
+  "processes": {
+    "7aa27f45-c829-44b0-9299-5a33e14a4b91": { "parent": null, "children": [] }
+  },
+  "files": {
+    "C:\\Users\\londo\\IdeaProjects\\simple-blog\\api\\spec\\db\\PostRequest.spec.ts": [
+      "7aa27f45-c829-44b0-9299-5a33e14a4b91"
+    ],
+    "C:\\Users\\londo\\IdeaProjects\\simple-blog\\api\\db\\PostRequest.js": [
+      "7aa27f45-c829-44b0-9299-5a33e14a4b91"
+    ],
+    "C:\\Users\\londo\\IdeaProjects\\simple-blog\\api\\models\\Post.js": [
+      "7aa27f45-c829-44b0-9299-5a33e14a4b91"
+    ]
+  },
+  "externalIds": {}
+}
