@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material/react-material-icon": "^0.15.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.26",
     "@types/react": "^16.9.19",
+    "@types/react-bootstrap": "^0.32.20",
     "@types/react-dom": "^16.9.5",
-    "@types/reactstrap": "^8.4.1",
     "aws-sdk": "^2.610.0",
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
     "typescript": "^3.7.5"
@@ -40,6 +43,6 @@
     ]
   },
   "devDependencies": {
-    "reactstrap": "^8.4.1"
+    "node-sass": "^4.13.1"
   }
 }

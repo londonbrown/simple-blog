@@ -3,7 +3,7 @@ import User from "../models/User";
 const uuid = require("uuid/v4");
 
 export default class UserRequest {
-  dynamoDBMapper: DataMapper;
+  private dynamoDBMapper: DataMapper;
   static TAG = "[UserRequest]: ";
 
   constructor(dynamoDBMapper: DataMapper) {
