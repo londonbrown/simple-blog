@@ -34,7 +34,7 @@ export default class APIHTTPClient {
     };
   }
 
-  static getPost(id: string) {
+  static getPost(id: string | null) {
     return axios
       .get(postRequestUrl, {
         params: {

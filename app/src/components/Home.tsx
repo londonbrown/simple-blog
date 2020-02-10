@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Jumbotron, Row } from "react-bootstrap";
+import Post from "./Post";
 import PostPreview from "./PostPreview";
 import APIHTTPClient from "../clients/APIHTTPClient";
 
@@ -88,7 +89,7 @@ export default class Home extends Component<HomeProps, HomeState> {
         <Row className="mt-0">
           <Col className="mt-0">
             {this.state.latestPost && (
-              <PostPreview
+              <Post
                 id={this.state.latestPost.id}
                 title={this.state.latestPost.title}
                 createdAt={this.state.latestPost.createdAt}
@@ -99,7 +100,7 @@ export default class Home extends Component<HomeProps, HomeState> {
             {this.state.posts.map(post => {
               if (
                 !this.state.latestPost ||
-                post.id != this.state.latestPost.id
+                post.id !== this.state.latestPost.id
               ) {
                 return (
                   <PostPreview
@@ -107,7 +108,6 @@ export default class Home extends Component<HomeProps, HomeState> {
                     title={post.title}
                     createdAt={post.createdAt}
                     username={post.username}
-                    content={post.content}
                   />
                 );
               }
