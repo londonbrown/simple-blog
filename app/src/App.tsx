@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PostContainer from "./components/PostContainer";
 import UserContainer from "./components/UserContainer";
+import PostComposer from "./components/PostComposer";
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,8 @@ const App: React.FC = () => {
           <Route exact path="/" component={() => <Home />} />
           <Route path="/post" component={() => <PostContainer />} />
           <Route path="/user" component={() => <UserContainer />} />
+          <Route path="/new" component={() => <PostComposer />} />
+          <Route path="/edit" component={() => <PostComposer editMode/>} />
         </Switch>
       </Router>
     </Container>
