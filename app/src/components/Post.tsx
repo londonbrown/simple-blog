@@ -38,13 +38,4 @@ class Post extends Component<PostProps> {
   }
 }
 
-// function PostOld(
-//   this: any,
-//   { id, title, createdAt, content, username, tags }: PostState
-// ) {
-//   return (
-
-//   );
-// }
-
 export default Post;

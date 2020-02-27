@@ -6,7 +6,7 @@ import MaterialIcon from "@material/react-material-icon";
 type TagGroupProps = {
   tags: Array<string>;
   className?: string;
-}
+};
 
 export default class TagGroup extends Component<TagGroupProps> {
   constructor(props: any) {
@@ -15,17 +15,15 @@ export default class TagGroup extends Component<TagGroupProps> {
 
   render() {
     let tagBadges = this.props.tags.map(tag => {
-      return <Badge className="mr-2" pill variant="primary" key={tag}>
-        {tag}
-        <span>
-            <CancelIcon className="ml-1"/>
-        </span>
-      </Badge>;
+      return (
+        <Badge className="mr-2" pill variant="primary" key={tag}>
+          {tag}
+          <span>
+            <CancelIcon className="ml-1" />
+          </span>
+        </Badge>
+      );
     });
-    return (
-      <section className={this.props.className}>
-        {tagBadges}
-      </section>
-    );
+    return <section className={this.props.className}>{tagBadges}</section>;
   }
 }

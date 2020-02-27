@@ -9,8 +9,15 @@ import {
 const userRequestUrl = LOCAL_API_GATEWAY_ENDPOINT + USER_PATH;
 const postRequestUrl = LOCAL_API_GATEWAY_ENDPOINT + POST_PATH;
 
-export default class APIHTTPClient {
-  static getUser(id: string) {
+class APIHTTPClient {
+  constructor() {
+    this.getUser = this.getUser.bind(this);
+    this.getPost = this.getPost.bind(this);
+    this.getPostsByUser = this.getPostsByUser.bind(this);
+    this.getUserByUsername = this.getUserByUsername.bind(this);
+  }
+
+  getUser(id: string) {
     return axios
       .get(userRequestUrl, {
         params: {
@@ -26,7 +33,7 @@ export default class APIHTTPClient {
       .catch(e => console.error(e));
   }
 
-  static getUserByUsername(username: string) {
+  getUserByUsername(username: string) {
     return {
       id: "1234567",
       username: "lahiyam",
@@ -34,7 +41,7 @@ export default class APIHTTPClient {
     };
   }
 
-  static getPost(id: string | null) {
+  getPost(id: string | null) {
     return axios
       .get(postRequestUrl, {
         params: {
@@ -45,7 +52,7 @@ export default class APIHTTPClient {
       .catch(e => console.error(e));
   }
 
-  static getPostsByUser(userId: string, createdAt?: number) {
+  getPostsByUser(userId: string, createdAt?: number) {
     return axios
       .get(postRequestUrl, {
         params: {
@@ -57,3 +64,5 @@ export default class APIHTTPClient {
       .catch(e => console.error(e));
   }
 }
+
+export default APIHTTPClient;
