@@ -4,12 +4,14 @@ import TagGroup from "./TagGroup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // ES6
 import "../css/quill.css";
+import GlobalContext from "../contexts/GlobalContext";
 
 type PostComposerProps = {
   editMode?: boolean;
 };
 
 export default class PostComposer extends Component<PostComposerProps> {
+  static contextType = GlobalContext;
   constructor(props: any) {
     super(props);
   }

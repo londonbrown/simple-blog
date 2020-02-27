@@ -6,8 +6,8 @@ import {
   USER_PATH
 } from "../config.json";
 // TODO set based on environment variables
-const userRequestUrl = LOCAL_API_GATEWAY_ENDPOINT + USER_PATH;
-const postRequestUrl = LOCAL_API_GATEWAY_ENDPOINT + POST_PATH;
+const USER_REQUEST_URL = LOCAL_API_GATEWAY_ENDPOINT + USER_PATH;
+const POST_REQUEST_URL = LOCAL_API_GATEWAY_ENDPOINT + POST_PATH;
 
 class APIHTTPClient {
   constructor() {
@@ -19,7 +19,7 @@ class APIHTTPClient {
 
   getUser(id: string) {
     return axios
-      .get(userRequestUrl, {
+      .get(USER_REQUEST_URL, {
         params: {
           id: id
         },
@@ -43,7 +43,7 @@ class APIHTTPClient {
 
   getPost(id: string | null) {
     return axios
-      .get(postRequestUrl, {
+      .get(POST_REQUEST_URL, {
         params: {
           id: id
         }
@@ -54,7 +54,7 @@ class APIHTTPClient {
 
   getPostsByUser(userId: string, createdAt?: number) {
     return axios
-      .get(postRequestUrl, {
+      .get(POST_REQUEST_URL, {
         params: {
           userId: userId,
           createdAt: createdAt
