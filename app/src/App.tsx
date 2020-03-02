@@ -3,8 +3,13 @@ import Container from "react-bootstrap/Container";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PostContainer from "./components/PostContainer";
+import {
+  BrowserRouter as Router,
+  Route,
+  RouteComponentProps,
+  Switch
+} from "react-router-dom";
+import PostContainer, { PostContainerParams } from "./components/PostContainer";
 import UserContainer from "./components/UserContainer";
 import PostComposer from "./components/PostComposer";
 import APIHTTPClient from "./clients/APIHTTPClient";
@@ -40,7 +45,12 @@ class App extends Component<{}, AppState> {
           <Switch>
             <GlobalContext.Provider value={{ client: this.state.client }}>
               <Route exact path="/" component={() => <Home />} />
-              <Route path="/post" component={() => <PostContainer />} />
+              <Route
+                path="/post/:postId"
+                component={(
+                  props: RouteComponentProps<PostContainerParams>
+                ) => <PostContainer {...props} />}
+              />
               <Route path="/user" component={() => <UserContainer />} />
               <Route path="/new" component={() => <PostComposer />} />
               <Route path="/edit" component={() => <PostComposer editMode />} />

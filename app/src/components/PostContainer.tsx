@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Post, { PostProps } from "./Post";
-import { useLocation } from "react-router-dom";
+import Post from "./Post";
+import { RouteComponentProps, useLocation } from "react-router-dom";
 import GlobalContext from "../contexts/GlobalContext";
 
 function useQuery() {
@@ -11,9 +11,16 @@ type PostContainerState = {
   postData: any;
 };
 
-export default class PostContainer extends Component<{}, PostContainerState> {
+export type PostContainerParams = {
+  postId: string;
+};
+
+export default class PostContainer extends Component<
+  RouteComponentProps<PostContainerParams>,
+  PostContainerState
+> {
   static contextType = GlobalContext;
-  constructor(props: {}) {
+  constructor(props: RouteComponentProps<PostContainerParams>) {
     super(props);
     this.state = {
       postData: null
@@ -22,20 +29,25 @@ export default class PostContainer extends Component<{}, PostContainerState> {
 
   async componentDidMount() {
     if (this.context.client && !this.state.postData) {
-      const queryString = console.log(this);
-      console.log(queryString);
-      let id = "8e9f5a70-9595-4462-944e-6e1c6390e417";
       try {
-        const post = await this.context.client.getPost(id);
-        const user = await this.context.client.getUser(post.userId);
-        post.username = user.username;
-        this.setState({
-          postData: post
-        });
+        const post = await this.context.client.getPost(
+          this.props.match.params.postId
+        );
+        if (post) {
+          const user = await this.context.client.getUser(post.userId);
+          post.username = user.username;
+          this.setState({
+            postData: post
+          });
+        }
       } catch (e) {
         console.error(e);
       }
     }
+  }
+
+  async componentDidUpdate() {
+    console.log(this.props);
   }
 
   render() {

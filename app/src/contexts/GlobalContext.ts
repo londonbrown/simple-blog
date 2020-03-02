@@ -1,7 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import APIHTTPClient from "../clients/APIHTTPClient";
 
-const ClientContext = React.createContext<{}>({
+type GlobalContext = {
+  client: APIHTTPClient | undefined;
+};
+
+const ClientContext = React.createContext<GlobalContext>({
   client: undefined
 });
 export default ClientContext;

@@ -24,68 +24,60 @@ export default class Home extends Component<HomeProps, HomeState> {
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
-      posts: [
-        {
-          id: "asdasdeb-6ce4-4afc-a920-94e64139e254",
-          title: "Another title",
-          content: "Content",
-          username: "lahiyam",
-          createdAt: 1580283661219
-        },
-        {
-          id: "c9bc0deb-6ce4-4afc-a920-94e64139e254",
-          title: "Example title",
-          content: LOREM_JIBBERISH,
-          username: "lahiyam",
-          createdAt: 1580283661219
-        }
-      ],
+      posts: [],
       author: null,
       latestPost: null
     };
   }
 
   async componentDidMount(): Promise<void> {
-    try {
-      const userRequestResponse = await this.context.client.getUser(
-        "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b"
-      );
-      const postsByUserRequestResponse: Array<any> = await this.context.client.getPostsByUser(
-        userRequestResponse.id
-      );
+    if (this.context.client) {
+      try {
+        const userRequestResponse = await this.context.client.getUser(
+          "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b"
+        );
+        const postsByUserRequestResponse: Array<any> = await this.context.client.getPostsByUser(
+          userRequestResponse.id
+        );
 
-      const latestPostId = postsByUserRequestResponse[0].id;
-      const latestPost = await this.context.client.getPost(latestPostId);
-
-      const postsWithAuthor = postsByUserRequestResponse.map(post => {
-        post.username = userRequestResponse.username;
-        return post;
-      });
-      console.log(postsWithAuthor);
-      this.setState({
-        author: userRequestResponse,
-        posts: postsByUserRequestResponse,
-        latestPost: latestPost
-      });
-    } catch (e) {
-      console.error(e);
+        let latestPost = null;
+        if (postsByUserRequestResponse.length > 0) {
+          const latestPostId = postsByUserRequestResponse[0].id;
+          latestPost = await this.context.client.getPost(latestPostId);
+        }
+        const postsWithAuthor = postsByUserRequestResponse.map(post => {
+          post.username = userRequestResponse.username;
+          return post;
+        });
+        this.setState({
+          author: userRequestResponse,
+          posts: postsByUserRequestResponse,
+          latestPost: latestPost
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 
   render() {
-    console.log(this.state);
+    const latestPost = this.state.posts.length > 0 && (
+      <>
+        <hr className="my-2" />
+        <p>View latest post</p>
+        <p className="lead">
+          <Button color="primary" href={this.state.posts[0].link}>
+            {this.state.posts[0].title}
+          </Button>
+        </p>
+      </>
+    );
     return (
       <div className={this.props.className}>
         <Jumbotron>
           <h1 className="display-4">lahiyam</h1>
           <p className="lead display-3">Nonsensical whisperings</p>
-          <hr className="my-2" />
-          <p>View latest post</p>
-          <p className="lead">
-            <Button color="primary" href={this.state.posts[0].link}>
-              {this.state.posts[0].title}
-            </Button>
-          </p>
+          {latestPost}
         </Jumbotron>
         <Row className="mt-0">
           <Col className="mt-0">
