@@ -55,7 +55,7 @@ export default class PostRequest {
         }
         posts.push(post);
       }
-      return posts;
+      return posts.reverse();
     } catch (e) {
       console.error(PostRequest.TAG, "An error occurred", e);
     }

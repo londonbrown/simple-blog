@@ -3,10 +3,6 @@ import Post from "./Post";
 import { RouteComponentProps, useLocation } from "react-router-dom";
 import GlobalContext from "../contexts/GlobalContext";
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 type PostContainerState = {
   postData: any;
 };
