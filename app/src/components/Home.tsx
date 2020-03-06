@@ -13,6 +13,7 @@ type HomeState = {
   posts: Array<any>;
   author: any;
   latestPost: any;
+  mounted: boolean;
 };
 
 type HomeProps = {
@@ -26,12 +27,20 @@ export default class Home extends Component<HomeProps, HomeState> {
     this.state = {
       posts: [],
       author: null,
-      latestPost: null
+      latestPost: null,
+      mounted: false
     };
   }
 
-  async componentDidMount(): Promise<void> {
-    if (this.context.client) {
+  async componentDidUpdate(): Promise<void> {
+    console.log("Mount");
+    console.log(this.context.client);
+    console.log(this.state);
+    if (
+      this.context.client &&
+      this.state.posts.length == 0 &&
+      this.state.latestPost == null
+    ) {
       try {
         const userRequestResponse = await this.context.client.getUser(
           "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b"
@@ -88,6 +97,7 @@ export default class Home extends Component<HomeProps, HomeState> {
                 createdAt={this.state.latestPost.createdAt}
                 content={this.state.latestPost.content}
                 username={this.state.author.username}
+                canBeModal
               />
             )}
             {this.state.posts.map(post => {

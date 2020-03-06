@@ -13,10 +13,12 @@ import PostContainer, { PostContainerParams } from "./components/PostContainer";
 import UserContainer from "./components/UserContainer";
 import PostComposer from "./components/PostComposer";
 import APIHTTPClient from "./clients/APIHTTPClient";
-import GlobalContext from "./contexts/GlobalContext";
+import GlobalContext, { ModalState } from "./contexts/GlobalContext";
+import { Modal } from "react-bootstrap";
 
 type AppState = {
   client: APIHTTPClient | undefined;
+  modal: ModalState;
 };
 
 class App extends Component<{}, AppState> {
@@ -24,8 +26,28 @@ class App extends Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      client: undefined
+      client: undefined,
+      modal: {
+        enabled: false
+      }
     };
+    this.updateModal = this.updateModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  updateModal(modal: ModalState): void {
+    this.setState({
+      modal: modal
+    });
+  }
+
+  closeModal(): void {
+    console.log("Closed");
+    const modal = this.state.modal;
+    modal.enabled = false;
+    this.setState({
+      modal: modal
+    });
   }
 
   componentDidMount(): void {
@@ -39,25 +61,53 @@ class App extends Component<{}, AppState> {
 
   render() {
     return (
-      <Container>
-        <Header />
-        <Router>
-          <Switch>
-            <GlobalContext.Provider value={{ client: this.state.client }}>
-              <Route exact path="/" component={() => <Home />} />
-              <Route
-                path="/post/:postId"
-                component={(
-                  props: RouteComponentProps<PostContainerParams>
-                ) => <PostContainer {...props} />}
-              />
-              <Route path="/user" component={() => <UserContainer />} />
-              <Route path="/new" component={() => <PostComposer />} />
-              <Route path="/edit" component={() => <PostComposer editMode />} />
-            </GlobalContext.Provider>
-          </Switch>
-        </Router>
-      </Container>
+      <>
+        <Container>
+          <Header />
+          <Router>
+            <Switch>
+              <GlobalContext.Provider
+                value={{
+                  client: this.state.client,
+                  updateModal: this.updateModal
+                }}
+              >
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route
+                  path="/post/:postId"
+                  component={(
+                    props: RouteComponentProps<PostContainerParams>
+                  ) => <PostContainer {...props} />}
+                  {...this.props}
+                />
+                <Route path="/user" component={() => <UserContainer />} />
+                <Route path="/new" component={() => <PostComposer />} />
+                <Route
+                  path="/edit"
+                  component={() => <PostComposer editMode />}
+                />
+                <Modal
+                  show={this.state.modal.enabled}
+                  onHide={this.closeModal}
+                  centered
+                  autoFocus
+                  backdrop={"static"}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>{this.state.modal.title}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>{this.state.modal.body}</Modal.Body>
+                  {this.state.modal.footer && (
+                    <Modal.Footer>{this.state.modal.footer}</Modal.Footer>
+                  )}
+                </Modal>
+              </GlobalContext.Provider>
+            </Switch>
+          </Router>
+        </Container>
+      </>
     );
   }
 }
