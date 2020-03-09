@@ -4,9 +4,17 @@ import {
   POST_PATH,
   USER_PATH
 } from "../config.json";
+import { PostProps } from "../components/Post";
+import { Delta } from "quill";
 // TODO set based on environment variables
 const USER_REQUEST_URL = LOCAL_API_GATEWAY_ENDPOINT + USER_PATH;
 const POST_REQUEST_URL = LOCAL_API_GATEWAY_ENDPOINT + POST_PATH;
+
+type PostSubmission = {
+  title: string | undefined;
+  content: string | Delta | undefined;
+  username: string | undefined;
+};
 
 class APIHTTPClient {
   constructor() {
@@ -14,6 +22,8 @@ class APIHTTPClient {
     this.getPost = this.getPost.bind(this);
     this.getPostsByUser = this.getPostsByUser.bind(this);
     this.getUserByUsername = this.getUserByUsername.bind(this);
+    this.getUsername = this.getUsername.bind(this);
+    this.submitPost = this.submitPost.bind(this);
   }
 
   getUser(id: string) {
@@ -40,6 +50,10 @@ class APIHTTPClient {
     };
   }
 
+  getUsername(): string {
+    return "lahiyam";
+  }
+
   getPost(id: string | null) {
     return axios
       .get(POST_REQUEST_URL, {
@@ -61,6 +75,11 @@ class APIHTTPClient {
       })
       .then(response => response.data)
       .catch(e => console.error(e));
+  }
+
+  submitPost(postObj: PostSubmission): PostProps {
+    console.log(postObj);
+    return null;
   }
 }
 

@@ -18,6 +18,7 @@ import { Modal } from "react-bootstrap";
 
 type AppState = {
   client: APIHTTPClient | undefined;
+  username: string | undefined;
   modal: ModalState;
 };
 
@@ -28,6 +29,7 @@ class App extends Component<{}, AppState> {
     super(props);
     this.state = {
       client: undefined,
+      username: undefined,
       modal: {
         enabled: false
       }
@@ -51,11 +53,13 @@ class App extends Component<{}, AppState> {
     });
   }
 
-  componentDidMount(): void {
+  async componentDidMount(): Promise<void> {
     if (!this.client || !this.state.client) {
       this.client = new APIHTTPClient();
+      let username = await this.client.getUsername();
       this.setState({
-        client: this.client
+        client: this.client,
+        username: username
       });
     }
   }
@@ -70,6 +74,7 @@ class App extends Component<{}, AppState> {
               <GlobalContext.Provider
                 value={{
                   client: this.state.client,
+                  username: this.state.username,
                   updateModal: this.updateModal
                 }}
               >

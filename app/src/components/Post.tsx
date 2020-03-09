@@ -11,7 +11,7 @@ export type PostProps = {
   username: JSX.Element;
   tags?: Array<string>;
   canBeModal?: boolean;
-};
+} | null;
 
 class Post extends Component<PostProps> {
   static contextType = GlobalContext;

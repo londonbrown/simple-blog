@@ -10,6 +10,10 @@ import { Delta } from "quill";
 type PostComposerState = {
   editorDelta: string | Delta | undefined;
   formValidated: boolean | undefined;
+  title: string | undefined;
+  tags: Array<string> | undefined;
+  titleValid: boolean | undefined;
+  tagsValid: boolean | undefined;
 };
 
 type PostComposerProps = {
@@ -27,11 +31,17 @@ export default class PostComposer extends Component<
   constructor(props: any) {
     super(props);
     this.state = {
+      title: undefined,
+      tags: ["tag1", "tag2"],
       editorDelta: "",
-      formValidated: undefined
+      formValidated: undefined,
+      titleValid: undefined,
+      tagsValid: undefined
     };
     this.editorRef = React.createRef();
     this.handleQuillChange = this.handleQuillChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFormChangeEvent = this.handleFormChangeEvent.bind(this);
     this.modules = {
       toolbar: [
         ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -52,7 +62,7 @@ export default class PostComposer extends Component<
     };
   }
 
-  handleQuillChange(event: any) {
+  handleQuillChange() {
     if (
       this.editorRef.hasOwnProperty("current") &&
       this.editorRef.current !== null
@@ -63,9 +73,32 @@ export default class PostComposer extends Component<
     }
   }
 
+  handleFormChangeEvent(event: any) {
+    let target = event.currentTarget;
+    console.log(target);
+    console.log(target.id);
+    if ("id" in target) {
+      switch (target.id) {
+        case "formPostTitle":
+          this.setState({
+            title: target.value
+          });
+          break;
+        case "formPostTags":
+          break; // TODO update tags
+        default:
+          break;
+      }
+    }
+  }
+
   handleFormSubmit(event: any) {
     event.preventDefault();
-    alert("Form submitted");
+    this.context.client.submitPost({
+      title: this.state.title,
+      content: this.state.editorDelta,
+      username: this.context.username
+    });
   }
 
   render() {
@@ -77,7 +110,12 @@ export default class PostComposer extends Component<
               <Form validated={this.state.formValidated}>
                 <Form.Group controlId="formPostTitle">
                   <Form.Label>Title</Form.Label>
-                  <Form.Control type="input" placeholder="Enter title" />
+                  <Form.Control
+                    isValid={this.state.titleValid}
+                    onChange={this.handleFormChangeEvent}
+                    type="input"
+                    placeholder="Enter title"
+                  />
                 </Form.Group>
                 <Form.Group controlId="formPostContent">
                   <Form.Label>Content</Form.Label>
@@ -90,9 +128,15 @@ export default class PostComposer extends Component<
                 </Form.Group>
                 <Form.Group controlId="formPostTags">
                   <Form.Label>Tags</Form.Label>
-                  <Form.Control as="input" />
+                  <Form.Control
+                    onChange={this.handleFormChangeEvent}
+                    isValid={this.state.tagsValid}
+                    as="input"
+                  />
                   <Form.Text>
-                    <TagGroup className="mt-2" tags={["Tag", "AnotherTag"]} />
+                    {this.state.tags && (
+                      <TagGroup className="mt-2" tags={this.state.tags} />
+                    )}
                   </Form.Text>
                 </Form.Group>
                 <Form.Group>

@@ -10,11 +10,13 @@ export type ModalState = {
 
 type GlobalContext = {
   client: APIHTTPClient | undefined;
+  username: string | undefined;
   updateModal: undefined | ((modal: ModalState) => void);
 };
 
 const ClientContext = React.createContext<GlobalContext>({
   client: undefined,
+  username: undefined,
   updateModal: undefined
 });
 export default ClientContext;
