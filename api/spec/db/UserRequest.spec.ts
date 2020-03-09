@@ -1,10 +1,10 @@
 import UserRequest, { User } from "../../db/UserRequest";
-
-const chalk = require("chalk");
-const sinon = require("sinon");
 import { expect } from "chai";
 import "mocha";
 import { DataMapper } from "@aws/dynamodb-data-mapper";
+
+const chalk = require("chalk");
+const sinon = require("sinon");
 
 let userDao;
 

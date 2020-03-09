@@ -1,10 +1,9 @@
 import PostRequest, { Post } from "../../db/PostRequest";
+import { expect } from "chai";
+import DynamoDBMapper from "../../db/DynamoDBMapper";
 
 const chalk = require("chalk");
 const sinon = require("sinon");
-import { expect } from "chai";
-import DynamoDBMapper from "../../db/DynamoDBMapper";
-import { QueryIterator } from "@aws/dynamodb-query-iterator";
 
 let postDao;
 

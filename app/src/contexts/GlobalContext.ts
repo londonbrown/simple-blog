@@ -3,7 +3,7 @@ import APIHTTPClient from "../clients/APIHTTPClient";
 
 export type ModalState = {
   enabled: boolean;
-  title?: string;
+  title?: JSX.Element;
   body?: JSX.Element;
   footer?: JSX.Element;
 };

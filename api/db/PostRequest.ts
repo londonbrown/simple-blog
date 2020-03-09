@@ -1,9 +1,8 @@
 import { DataMapper } from "@aws/dynamodb-data-mapper/build/DataMapper";
 import { greaterThanOrEqualTo } from "@aws/dynamodb-expressions";
+import Post from "../models/Post";
 
 const uuid = require("uuid/v4");
-
-import Post from "../models/Post";
 
 export default class PostRequest {
   dynamoDBMapper: DataMapper;

@@ -15,6 +15,7 @@ export type PostProps = {
 
 class Post extends Component<PostProps> {
   static contextType = GlobalContext;
+
   constructor(props: PostProps) {
     super(props);
     this.onClickListener = this.onClickListener.bind(this);

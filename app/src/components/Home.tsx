@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Col, Container, Jumbotron, Row } from "react-bootstrap";
+import { Button, Col, Jumbotron, Row } from "react-bootstrap";
 import Post from "./Post";
 import PostPreview from "./PostPreview";
 import GlobalContext from "../contexts/GlobalContext";
@@ -22,6 +22,7 @@ type HomeProps = {
 
 export default class Home extends Component<HomeProps, HomeState> {
   static contextType = GlobalContext;
+
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {

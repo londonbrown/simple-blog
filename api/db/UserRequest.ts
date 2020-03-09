@@ -1,5 +1,6 @@
 import { DataMapper } from "@aws/dynamodb-data-mapper";
 import User from "../models/User";
+
 const uuid = require("uuid/v4");
 
 export default class UserRequest {

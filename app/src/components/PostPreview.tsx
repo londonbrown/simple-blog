@@ -13,6 +13,7 @@ class PostPreview extends Component<PostPreviewProps> {
   constructor(props: PostPreviewProps) {
     super(props);
   }
+
   render() {
     return (
       <Card className="mt-4 mb-4">

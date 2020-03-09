@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  API_GATEWAY_ENDPOINT,
   LOCAL_API_GATEWAY_ENDPOINT,
   POST_PATH,
   USER_PATH

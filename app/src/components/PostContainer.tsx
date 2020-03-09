@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Post from "./Post";
-import { RouteComponentProps, useLocation } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import GlobalContext from "../contexts/GlobalContext";
 
 type PostContainerState = {
@@ -16,6 +16,7 @@ export default class PostContainer extends Component<
   PostContainerState
 > {
   static contextType = GlobalContext;
+
   constructor(props: RouteComponentProps<PostContainerParams>) {
     super(props);
     this.state = {

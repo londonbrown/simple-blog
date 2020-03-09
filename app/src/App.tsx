@@ -23,6 +23,7 @@ type AppState = {
 
 class App extends Component<{}, AppState> {
   private client: APIHTTPClient | undefined;
+
   constructor(props: {}) {
     super(props);
     this.state = {
