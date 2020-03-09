@@ -100,6 +100,7 @@
     ]
   },
   "devDependencies": {
+    "chalk": "^3.0.0",
     "@material-ui/icons": "^4.9.1",
     "@types/react-router-bootstrap": "^0.24.5",
     "bootswatch": "^4.4.1",

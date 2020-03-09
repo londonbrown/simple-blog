@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import PostContainer, { PostContainerParams } from "./components/PostContainer";
 import UserContainer from "./components/UserContainer";
-import PostComposer from "./components/PostComposer";
+import PostComposer, { PostComposerParams } from "./components/PostComposer";
 import APIHTTPClient from "./clients/APIHTTPClient";
 import GlobalContext, { ModalState } from "./contexts/GlobalContext";
 import { Modal } from "react-bootstrap";
@@ -68,7 +68,6 @@ class App extends Component<{}, AppState> {
     return (
       <>
         <Container>
-          <Header />
           <Router>
             <Switch>
               <GlobalContext.Provider
@@ -78,9 +77,8 @@ class App extends Component<{}, AppState> {
                   updateModal: this.updateModal
                 }}
               >
-                <Route exact path="/">
-                  <Home />
-                </Route>
+                <Header />
+                <Route exact path="/" component={Home} />
                 <Route
                   path="/post/:postId"
                   component={(
@@ -89,10 +87,18 @@ class App extends Component<{}, AppState> {
                   {...this.props}
                 />
                 <Route path="/user" component={() => <UserContainer />} />
-                <Route path="/new" component={() => <PostComposer />} />
+                <Route
+                  path="/new"
+                  component={(
+                    props: RouteComponentProps<PostComposerParams>
+                  ) => <PostComposer {...props} />}
+                />
                 <Route
                   path="/edit"
-                  component={() => <PostComposer editMode />}
+                  component={(
+                    props: RouteComponentProps<PostComposerParams>
+                  ) => <PostComposer {...props} />}
+                  editMode={"true"}
                 />
                 <Modal
                   show={this.state.modal.enabled}

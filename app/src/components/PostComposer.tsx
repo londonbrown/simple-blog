@@ -6,6 +6,7 @@ import "react-quill/dist/quill.snow.css"; // ES6
 import "../css/quill.css";
 import GlobalContext from "../contexts/GlobalContext";
 import { Delta } from "quill";
+import { RouteComponentProps } from "react-router";
 
 type PostComposerState = {
   editorDelta: string | Delta | undefined;
@@ -16,19 +17,19 @@ type PostComposerState = {
   tagsValid: boolean | undefined;
 };
 
-type PostComposerProps = {
-  editMode?: boolean;
+export type PostComposerParams = {
+  editMode: string | undefined;
 };
 
 export default class PostComposer extends Component<
-  PostComposerProps,
+  RouteComponentProps<PostComposerParams>,
   PostComposerState
 > {
   static contextType = GlobalContext;
   private readonly editorRef: React.RefObject<ReactQuill>;
   private readonly modules: {};
 
-  constructor(props: any) {
+  constructor(props: RouteComponentProps<PostComposerParams>) {
     super(props);
     this.state = {
       title: undefined,
@@ -42,6 +43,7 @@ export default class PostComposer extends Component<
     this.handleQuillChange = this.handleQuillChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChangeEvent = this.handleFormChangeEvent.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.modules = {
       toolbar: [
         ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -60,6 +62,10 @@ export default class PostComposer extends Component<
         ["clean"]
       ]
     };
+  }
+
+  handleCancel() {
+    this.props.history.goBack();
   }
 
   handleQuillChange() {
@@ -143,7 +149,11 @@ export default class PostComposer extends Component<
                   <Row className="row justify-content-end mr-0 ml-0">
                     <ButtonToolbar>
                       <Form.Group controlId="formPostCancel">
-                        <Button className="mr-3" variant="outline-light">
+                        <Button
+                          onClick={this.handleCancel}
+                          className="mr-3"
+                          variant="outline-light"
+                        >
                           Cancel
                         </Button>
                       </Form.Group>
