@@ -1,44 +1,61 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import { PostData } from "./Editor";
+import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
+import { Button } from "react-bootstrap";
+import MaterialIcon from "@material/react-material-icon";
+import Post from "./Post";
+import Quill from "quill";
 
 type PostPreviewProps = {
-  id: string;
-  title: string;
-  createdAt: number;
-  username: string;
-  tags?: Array<string>;
+  postData: PostData;
+  onEditor: () => void;
 };
 
-class PostPreview extends Component<PostPreviewProps> {
+export default class PostPreview extends Component<PostPreviewProps> {
   constructor(props: PostPreviewProps) {
     super(props);
+    console.log("1", Object.getPrototypeOf(this.props.postData.content));
+    console.log("2", Object.getPrototypeOf(new (Quill.import("delta"))()));
   }
 
   render() {
     return (
-      <Card className="mt-4 mb-4">
-        <Card.Body>
-          <Card.Title className="display-4">{this.props.title}</Card.Title>
+      <>
+        <Alert key={"preview-alert"} variant="info">
+          <Alert.Heading>
+            This a preview of what the post will look like.
+          </Alert.Heading>
+          <p>
+            If everything looks good, click the <b>Save</b> button. If you need
+            to make changes, click the <b>Editor</b> button.
+          </p>
           <hr />
-          <Card.Text>
-            <small className="text-muted">
-              Created on {new Date(this.props.createdAt).toString()} | By{" "}
-              <a href="#">{this.props.username}</a>
-            </small>
-          </Card.Text>
-        </Card.Body>
-      </Card>
+          <div className="d-flex justify-content-end">
+            <Button
+              onClick={this.props.onEditor}
+              variant="outline-secondary"
+              className="mr-2"
+            >
+              <MaterialIcon style={{ verticalAlign: "middle" }} icon="edit" />
+              <span className={"ml-1"} style={{ verticalAlign: "middle" }}>
+                Editor
+              </span>
+            </Button>
+            <Button variant="primary">
+              <MaterialIcon style={{ verticalAlign: "middle" }} icon="save" />
+              <span className={"ml-1"} style={{ verticalAlign: "middle" }}>
+                Save
+              </span>
+            </Button>
+          </div>
+        </Alert>
+        <Post
+          title={this.props.postData.title}
+          content={this.props.postData.content}
+          tags={this.props.postData.tags}
+        />
+      </>
     );
   }
 }
-
-// function PostOld(
-//   this: any,
-//   { id, title, createdAt, content, username, tags }: PostState
-// ) {
-//   return (
-
-//   );
-// }
-
-export default PostPreview;

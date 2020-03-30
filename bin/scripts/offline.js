@@ -12,7 +12,7 @@ const apiScriptObj = {
   id: "api",
   name: "offline",
   parent: apiDir,
-  searchString: "Offline [HTTP] listening"
+  searchString: "[HTTP] server ready"
 };
 scriptRunner(apiScriptObj, (err, message) => {
   if (err) {

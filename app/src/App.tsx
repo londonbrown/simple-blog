@@ -11,10 +11,10 @@ import {
 } from "react-router-dom";
 import PostContainer, { PostContainerParams } from "./components/PostContainer";
 import UserContainer from "./components/UserContainer";
-import PostComposer, { PostComposerParams } from "./components/PostComposer";
 import APIHTTPClient from "./clients/APIHTTPClient";
 import GlobalContext, { ModalState } from "./contexts/GlobalContext";
 import { Modal } from "react-bootstrap";
+import Editor, { EditorProps } from "./components/Editor";
 
 type AppState = {
   client: APIHTTPClient | undefined;
@@ -45,7 +45,6 @@ class App extends Component<{}, AppState> {
   }
 
   closeModal(): void {
-    console.log("Closed");
     const modal = this.state.modal;
     modal.enabled = false;
     this.setState({
@@ -88,16 +87,11 @@ class App extends Component<{}, AppState> {
                 />
                 <Route path="/user" component={() => <UserContainer />} />
                 <Route
-                  path="/new"
-                  component={(
-                    props: RouteComponentProps<PostComposerParams>
-                  ) => <PostComposer {...props} />}
-                />
-                <Route
-                  path="/edit"
-                  component={(
-                    props: RouteComponentProps<PostComposerParams>
-                  ) => <PostComposer {...props} />}
+                  path="/(edit|new)"
+                  component={(props: RouteComponentProps<EditorProps>) => (
+                    <Editor {...props} />
+                  )}
+                  mode={"edit"}
                   editMode={"true"}
                 />
                 <Modal

@@ -1,19 +1,24 @@
 import axios from "axios";
 import {
+  API_GATEWAY_ENDPOINT,
   LOCAL_API_GATEWAY_ENDPOINT,
   POST_PATH,
   USER_PATH
 } from "../config.json";
 import { PostProps } from "../components/Post";
-import { Delta } from "quill";
-// TODO set based on environment variables
-const USER_REQUEST_URL = LOCAL_API_GATEWAY_ENDPOINT + USER_PATH;
-const POST_REQUEST_URL = LOCAL_API_GATEWAY_ENDPOINT + POST_PATH;
+import * as Quill from "quill";
+const ENDPOINT =
+  window.location.hostname === "localhost"
+    ? LOCAL_API_GATEWAY_ENDPOINT
+    : API_GATEWAY_ENDPOINT;
+const USER_REQUEST_URL = ENDPOINT + USER_PATH;
+const POST_REQUEST_URL = ENDPOINT + POST_PATH;
 
 type PostSubmission = {
   title: string | undefined;
-  content: string | Delta | undefined;
+  content: string | Quill.DeltaStatic | undefined;
   username: string | undefined;
+  tags: Set<string> | undefined;
 };
 
 class APIHTTPClient {

@@ -3,26 +3,40 @@ import { Badge } from "react-bootstrap";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 type TagGroupProps = {
-  tags: Array<string>;
+  tags: Set<string>;
+  removeTagListener: (event: any) => void;
   className?: string;
 };
 
-export default class TagGroup extends Component<TagGroupProps> {
-  constructor(props: any) {
-    super(props);
-  }
+type TagBadgesState = {
+  tagBadges: JSX.Element[];
+};
 
+export function validateTag(tagValue: string): boolean {
+  return /^\w+$/.test(tagValue);
+}
+
+export default class TagGroup extends Component<TagGroupProps, TagBadgesState> {
   render() {
-    let tagBadges = this.props.tags.map(tag => {
-      return (
-        <Badge className="mr-2" pill variant="primary" key={tag}>
-          <span style={{ verticalAlign: "middle" }}>{tag}</span>
-          <span>
+    let badgesFromProps: JSX.Element[] = [];
+    this.props.tags.forEach((value, key) => {
+      badgesFromProps.push(
+        <Badge className="mr-2" pill variant="primary" key={key}>
+          <span style={{ verticalAlign: "middle" }}>{value}</span>
+          <span
+            style={{
+              cursor: "pointer"
+            }}
+            data-tag-value={value}
+            onClick={this.props.removeTagListener}
+          >
             <CancelIcon className="ml-1" />
           </span>
         </Badge>
       );
     });
-    return <section className={this.props.className}>{tagBadges}</section>;
+    return (
+      <section className={this.props.className}>{badgesFromProps}</section>
+    );
   }
 }

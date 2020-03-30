@@ -2,7 +2,7 @@ import chalk from "chalk";
 import React, { Component, MouseEvent } from "react";
 import { Button, Col, Jumbotron, Row } from "react-bootstrap";
 import Post from "./Post";
-import PostPreview from "./PostPreview";
+import PostSummary from "./PostSummary";
 import GlobalContext from "../contexts/GlobalContext";
 
 type HomeState = {
@@ -121,7 +121,7 @@ export default class Home extends Component<HomeProps, HomeState> {
                 post.id !== this.state.latestPost.id
               ) {
                 return (
-                  <PostPreview
+                  <PostSummary
                     key={post.id}
                     id={post.id}
                     title={post.title}

@@ -2,14 +2,17 @@ import React, { Component, MouseEvent } from "react";
 import { Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import GlobalContext from "../contexts/GlobalContext";
+import * as quill from "quill";
+import Quill from "quill";
+import ReactQuill from "react-quill";
 
 export type PostProps = {
-  id: string;
-  title: JSX.Element;
-  createdAt: number;
-  content: JSX.Element;
-  username: JSX.Element;
-  tags?: Array<string>;
+  id?: string;
+  title: string | JSX.Element;
+  createdAt?: number;
+  content: quill.Delta | string;
+  username?: JSX.Element | string;
+  tags?: Set<string>;
   canBeModal?: boolean;
 } | null;
 
@@ -48,13 +51,28 @@ class Post extends Component<PostProps> {
           ) : (
             <>{title}</>
           )}
-          <Card.Text>
-            <small className="text-muted">
-              Created on {new Date(this.props.createdAt).toString()}
-            </small>
-          </Card.Text>
-          <hr />
-          <Card.Text>{this.props.content}</Card.Text>
+          {this.props.createdAt && (
+            <>
+              <Card.Text>
+                <small className="text-muted">
+                  Created on {new Date(this.props.createdAt).toString()}
+                </small>
+              </Card.Text>
+              <hr />
+            </>
+          )}
+          {Object.getPrototypeOf(this.props.content) ===
+          Object.getPrototypeOf(new (Quill.import("delta"))()) ? (
+            <ReactQuill
+              value={this.props.content}
+              readOnly={true}
+              modules={{
+                toolbar: []
+              }}
+            />
+          ) : (
+            <Card.Text>{this.props.content}</Card.Text>
+          )}
           <hr />
           <Card.Text>
             <small>By {this.props.username}</small>
