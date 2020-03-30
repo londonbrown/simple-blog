@@ -10,10 +10,6 @@ type PostSummaryProps = {
 };
 
 class PostSummary extends Component<PostSummaryProps> {
-  constructor(props: PostSummaryProps) {
-    super(props);
-  }
-
   render() {
     return (
       <Card className="mt-4 mb-4">

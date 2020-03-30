@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import React, { Component, MouseEvent } from "react";
 import { Button, Col, Jumbotron, Row } from "react-bootstrap";
 import Post from "./Post";
@@ -50,7 +49,7 @@ export default class Home extends Component<HomeProps, HomeState> {
             const latestPostId = postsByUserRequestResponse[0].id;
             latestPost = await this.context.client.getPost(latestPostId);
           }
-          const postsWithAuthor = postsByUserRequestResponse.map(post => {
+          postsByUserRequestResponse.map(post => {
             post.username = userRequestResponse.username;
             return post;
           });

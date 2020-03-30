@@ -169,7 +169,7 @@ export default class PostComposer extends Component<
 
   validateForm(): boolean {
     let isValid =
-      this.state.titleInvalid == false && this.state.quillValid == true;
+      this.state.titleInvalid === false && this.state.quillValid === true;
     this.setState({
       formValidated: isValid
     });

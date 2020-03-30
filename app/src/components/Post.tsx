@@ -5,6 +5,7 @@ import GlobalContext from "../contexts/GlobalContext";
 import * as quill from "quill";
 import Quill from "quill";
 import ReactQuill from "react-quill";
+import PostQuillContainer from "./PostQuillContainer";
 
 export type PostProps = {
   id?: string;
@@ -63,19 +64,16 @@ class Post extends Component<PostProps> {
           )}
           {Object.getPrototypeOf(this.props.content) ===
           Object.getPrototypeOf(new (Quill.import("delta"))()) ? (
-            <ReactQuill
-              value={this.props.content}
-              readOnly={true}
-              modules={{
-                toolbar: []
-              }}
-            />
+            <PostQuillContainer content={this.props.content} />
           ) : (
             <Card.Text>{this.props.content}</Card.Text>
           )}
           <hr />
           <Card.Text>
-            <small>By {this.props.username}</small>
+            <small>
+              By{" "}
+              <a href={`/user/${this.props.username}`}>{this.props.username}</a>
+            </small>
           </Card.Text>
         </Card.Body>
       </Card>

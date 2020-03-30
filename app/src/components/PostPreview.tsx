@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { PostData } from "./Editor";
-import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 import { Button } from "react-bootstrap";
 import MaterialIcon from "@material/react-material-icon";
@@ -13,12 +12,6 @@ type PostPreviewProps = {
 };
 
 export default class PostPreview extends Component<PostPreviewProps> {
-  constructor(props: PostPreviewProps) {
-    super(props);
-    console.log("1", Object.getPrototypeOf(this.props.postData.content));
-    console.log("2", Object.getPrototypeOf(new (Quill.import("delta"))()));
-  }
-
   render() {
     return (
       <>
