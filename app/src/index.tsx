@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootswatch/dist/darkly/bootstrap.min.css";
+import "./scss/custom.scss";
+import "./scss/quill-dark.scss";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

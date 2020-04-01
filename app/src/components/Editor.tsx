@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { RouteComponentProps } from "react-router";
 import PostComposer from "./PostComposer";
 import PostPreview from "./PostPreview";
-import Quill, * as quill from "quill";
+import Quill from "quill";
+import GlobalContext from "../contexts/GlobalContext";
+import { PostData } from "../types/Post";
 const Delta = Quill.import("delta");
 
 export type EditorProps = {
@@ -12,22 +14,18 @@ type EditorState = {
   postData: PostData | undefined;
   preview: boolean;
 };
-export type PostData = {
-  id?: string;
-  title: string;
-  createdAt?: number;
-  content: string | quill.DeltaStatic;
-  username?: string;
-  tags?: Set<string> | undefined;
-};
 export default class Editor extends Component<
   RouteComponentProps<EditorProps>,
   EditorState
 > {
+  static contextType = GlobalContext;
   constructor(props: RouteComponentProps<EditorProps>) {
     super(props);
     const delta = new Delta();
-    delta.insert("Hello, World!!!");
+    delta.insert("London", { size: "huge" });
+    delta.insert("\n", { header: 1 });
+    delta.insert('console.log("blogging is fun")');
+    delta.insert("\n", { "code-block": true });
     this.state = {
       postData: {
         title: "Title",
@@ -38,6 +36,7 @@ export default class Editor extends Component<
     };
     this.postDataChangeListener = this.postDataChangeListener.bind(this);
     this.toggleComposer = this.toggleComposer.bind(this);
+    this.savePostData = this.savePostData.bind(this);
   }
 
   postDataChangeListener(postData: PostData) {
@@ -49,8 +48,14 @@ export default class Editor extends Component<
 
   toggleComposer(): void {
     this.setState({
-      preview: false
+      preview: !this.state.preview
     });
+  }
+
+  savePostData() {
+    if (this.state.postData) {
+      this.context.client.submitPost(this.state.postData);
+    }
   }
 
   render() {
@@ -60,12 +65,15 @@ export default class Editor extends Component<
           <PostPreview
             onEditor={this.toggleComposer}
             postData={this.state.postData}
+            onSave={this.savePostData}
           />
         ) : (
           <PostComposer
+            postData={this.state.postData}
             editMode={this.props.match.params.mode}
             history={this.props.history}
             onSubmit={this.postDataChangeListener}
+            onSave={this.savePostData}
           />
         )}
       </>

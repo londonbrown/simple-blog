@@ -1,13 +1,48 @@
-@import "node_modules/bootswatch/dist/darkly/variables";
-
+@import "custom";
 .quill {
-  background: $dark !important;
+  background: $card-bg !important;
   .ql-editor {
     color: $light !important;
+    .ql-video {
+      width: 768px;
+      height: 432px;
+    }
+    pre.ql-syntax {
+      background-color: darken($card-bg, 5);
+    }
   }
   .ql-toolbar {
     .ql-stroke {
       stroke: $light;
+    }
+
+    button {
+      &.ql-active .ql-stroke {
+        stroke: theme-color(secondary);
+      }
+      &.ql-active .ql-fill {
+        fill: theme-color(secondary);
+      }
+      &:hover {
+        color: theme-color(secondary);
+
+        .ql-stroke,
+        .ql-picker-label:hover .ql-stroke {
+          stroke: theme-color(secondary);
+        }
+
+        .ql-fill,
+        .ql-active .ql-fill {
+          fill: theme-color(secondary);
+        }
+      }
+    }
+    .ql-picker-label.ql-active,
+    .ql-picker-label:hover,
+    .ql-picker-label:active,
+    .ql-picker-item:hover,
+    .ql-picker-item.ql-selected {
+      color: theme-color(secondary);
     }
     .ql-fill {
       fill: $light;
@@ -17,6 +52,16 @@
     }
     .ql-picker-options {
       background: $dark;
+    }
+    .ql-picker-label:hover .ql-stroke,
+    .ql-picker-label.ql-active .ql-stroke,
+    .ql-picker-item:hover .ql-stroke,
+    .ql-picker-item.ql-selected .ql-stroke {
+      stroke: theme-color(secondary);
+    }
+    .ql-picker-label:hover .ql-fill,
+    .ql-picker-label.ql-active .ql-fill {
+      fill: theme-color(secondary);
     }
   }
 }

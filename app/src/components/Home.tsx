@@ -37,11 +37,8 @@ export default class Home extends Component<HomeProps, HomeState> {
     } else {
       if (this.state.posts.length === 0 && this.state.latestPost === null) {
         try {
-          const userRequestResponse = await this.context.client.getUser(
-            "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b"
-          );
           const postsByUserRequestResponse: Array<any> = await this.context.client.getPostsByUser(
-            userRequestResponse.id
+            this.context.defaultUser.id
           );
 
           let latestPost = null;
@@ -50,11 +47,11 @@ export default class Home extends Component<HomeProps, HomeState> {
             latestPost = await this.context.client.getPost(latestPostId);
           }
           postsByUserRequestResponse.map(post => {
-            post.username = userRequestResponse.username;
+            post.username = this.context.defaultUser.username;
             return post;
           });
           this.setState({
-            author: userRequestResponse,
+            author: this.context.defaultUser,
             posts: postsByUserRequestResponse,
             latestPost: latestPost
           });

@@ -5,11 +5,9 @@ import { APIGatewayProxyHandler } from "aws-lambda";
 import "source-map-support/register";
 
 const postRequest = new PostRequest(DynamoDBMapper);
-
 export const index: APIGatewayProxyHandler = async (event, _context) => {
   try {
     const { httpMethod } = event;
-
     let queryEvent;
     if (httpMethod.toLocaleUpperCase() === "GET") {
       if (event.queryStringParameters) {
@@ -21,8 +19,9 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
     } else if (httpMethod.toLocaleUpperCase() === "PUT") {
       const body = JSON.parse(event.body);
       queryEvent = await updatePost(body);
-    } else if (httpMethod.toLocaleUpperCase("POST")) {
+    } else if (httpMethod.toLocaleUpperCase() === "POST") {
       const body = JSON.parse(event.body);
+      console.log(PostRequest.TAG, body);
       queryEvent = await createPost(body);
     } else {
       return {
@@ -38,6 +37,7 @@ export const index: APIGatewayProxyHandler = async (event, _context) => {
       body: JSON.stringify(queryEvent)
     };
   } catch (e) {
+    console.error(e);
     return {
       statusCode: 400,
       body: JSON.stringify(e)

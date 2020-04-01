@@ -15,10 +15,12 @@ import APIHTTPClient from "./clients/APIHTTPClient";
 import GlobalContext, { ModalState } from "./contexts/GlobalContext";
 import { Modal } from "react-bootstrap";
 import Editor, { EditorProps } from "./components/Editor";
+import { UserData } from "./types/User";
+import PostQuillContainer from "./components/PostQuillContainer";
 
 type AppState = {
-  client: APIHTTPClient | undefined;
-  username: string | undefined;
+  client?: APIHTTPClient;
+  defaultUser?: UserData;
   modal: ModalState;
 };
 
@@ -29,7 +31,7 @@ class App extends Component<{}, AppState> {
     super(props);
     this.state = {
       client: undefined,
-      username: undefined,
+      defaultUser: undefined,
       modal: {
         enabled: false
       }
@@ -55,10 +57,10 @@ class App extends Component<{}, AppState> {
   async componentDidMount(): Promise<void> {
     if (!this.client || !this.state.client) {
       this.client = new APIHTTPClient();
-      let username = await this.client.getUsername();
+      let defaultUser = await this.client.getDefaultUser();
       this.setState({
         client: this.client,
-        username: username
+        defaultUser: defaultUser
       });
     }
   }
@@ -66,17 +68,17 @@ class App extends Component<{}, AppState> {
   render() {
     return (
       <>
-        <Container>
-          <Router>
+        <Router>
+          <Container>
+            <Header className="mb-2" />
             <Switch>
               <GlobalContext.Provider
                 value={{
                   client: this.state.client,
-                  username: this.state.username,
+                  defaultUser: this.state.defaultUser,
                   updateModal: this.updateModal
                 }}
               >
-                <Header />
                 <Route exact path="/" component={Home} />
                 <Route
                   path="/post/:postId"
@@ -100,19 +102,26 @@ class App extends Component<{}, AppState> {
                   centered
                   autoFocus
                   backdrop={"static"}
+                  size="lg"
                 >
                   <Modal.Header closeButton>
                     <Modal.Title>{this.state.modal.title}</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>{this.state.modal.body}</Modal.Body>
+                  <Modal.Body>
+                    {typeof this.state.modal.body === "object" ? (
+                      <PostQuillContainer content={this.state.modal.body} />
+                    ) : (
+                      this.state.modal.body
+                    )}
+                  </Modal.Body>
                   {this.state.modal.footer && (
                     <Modal.Footer>{this.state.modal.footer}</Modal.Footer>
                   )}
                 </Modal>
               </GlobalContext.Provider>
             </Switch>
-          </Router>
-        </Container>
+          </Container>
+        </Router>
       </>
     );
   }

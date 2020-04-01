@@ -21,7 +21,7 @@ export default class TagGroup extends Component<TagGroupProps, TagBadgesState> {
     let badgesFromProps: JSX.Element[] = [];
     this.props.tags.forEach((value, key) => {
       badgesFromProps.push(
-        <Badge className="mr-2" pill variant="primary" key={key}>
+        <Badge className="mr-2" pill variant="secondary" key={key}>
           <span style={{ verticalAlign: "middle" }}>{value}</span>
           <span
             style={{

@@ -1,6 +1,8 @@
 import { DataMapper } from "@aws/dynamodb-data-mapper/build/DataMapper";
 import { greaterThanOrEqualTo } from "@aws/dynamodb-expressions";
 import Post from "../models/Post";
+import ts from "typescript/lib/tsserverlibrary";
+import nullTypingsInstaller = ts.server.nullTypingsInstaller;
 
 const uuid = require("uuid/v4");
 
@@ -57,6 +59,7 @@ export default class PostRequest {
       return posts.reverse();
     } catch (e) {
       console.error(PostRequest.TAG, "An error occurred", e);
+      return null;
     }
   }
 
@@ -110,7 +113,7 @@ export default class PostRequest {
       return objectSaved;
     } catch (e) {
       console.error(PostRequest.TAG, "An error occurred saving Post", post, e);
-      throw "An error occurred saving User";
+      throw "An error occurred saving Post";
     }
   }
 }

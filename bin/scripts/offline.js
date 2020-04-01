@@ -16,7 +16,7 @@ const apiScriptObj = {
 };
 scriptRunner(apiScriptObj, (err, message) => {
   if (err) {
-    console.error(new Error(err));
+    LOGGER(err);
     throw err;
   }
   if (message.trim === "") return;

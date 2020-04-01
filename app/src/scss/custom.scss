@@ -1,0 +1,27 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+$theme-colors: (
+  "primary": #2d57a1,
+  "secondary": #dc3839,
+  "info": #73bfb8,
+  "danger": #8e3b46,
+  "warning": #e1dd8f
+);
+$text-muted: $gray-500;
+$body-bg: $gray-800;
+$body-color: $gray-200;
+$card-bg: $gray-700;
+$modal-content-bg: $card-bg;
+$modal-header-border-color: darken($card-bg, 10);
+$modal-footer-border-color: $modal-header-border-color;
+$modal-content-border-color: $modal-header-border-color;
+$modal-content-color: $body-color;
+$close-color: $body-color;
+$card-cap-bg: $gray-600;
+$table-accent-bg: $gray-700;
+$table-border-color: $gray-600;
+$jumbotron-bg: $gray-700;
+$link-color: theme-color(secondary);
+
+@import "~bootstrap/scss/bootstrap";

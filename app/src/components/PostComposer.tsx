@@ -6,8 +6,8 @@ import "react-quill/dist/quill.snow.css"; // ES6
 import "../css/quill.css";
 import GlobalContext from "../contexts/GlobalContext";
 import * as History from "history";
-import { PostData } from "./Editor";
 import * as Quill from "quill";
+import { PostData } from "../types/Post";
 type PostComposerState = {
   editorDelta: string | Quill.DeltaStatic | undefined;
   formValidated: boolean | undefined;
@@ -19,9 +19,11 @@ type PostComposerState = {
 };
 
 export type PostComposerParams = {
-  editMode: string | undefined;
+  postData?: PostData;
+  editMode?: string;
   history: History.History;
   onSubmit: (postData: PostData) => void;
+  onSave: () => void;
 };
 
 export default class PostComposer extends Component<
@@ -35,10 +37,14 @@ export default class PostComposer extends Component<
   constructor(props: PostComposerParams) {
     super(props);
     this.state = {
-      title: undefined,
-      tags: new Set(),
-      editorDelta: "",
-      formValidated: false,
+      title: this.props.postData?.title,
+      tags: this.props.postData?.tags || new Set<string>(),
+      editorDelta: this.props.postData?.content || "",
+      formValidated:
+        (this.props.postData?.title &&
+          this.props.postData?.title.length > 0 &&
+          this.props.postData?.content !== undefined) ||
+        false,
       titleInvalid: undefined,
       tagsInvalid: undefined,
       quillValid: true
@@ -99,7 +105,8 @@ export default class PostComposer extends Component<
             });
           } else {
             this.setState({
-              titleInvalid: undefined
+              titleInvalid: undefined,
+              formValidated: undefined
             });
           }
           this.setState({
@@ -168,6 +175,9 @@ export default class PostComposer extends Component<
   }
 
   validateForm(): boolean {
+    if (this.state.formValidated) {
+      return true;
+    }
     let isValid =
       this.state.titleInvalid === false && this.state.quillValid === true;
     this.setState({
@@ -190,6 +200,7 @@ export default class PostComposer extends Component<
                     onChange={this.handleFormChangeEvent}
                     type="input"
                     placeholder="Enter title"
+                    value={this.state.title}
                   />
                 </Form.Group>
                 <Form.Group controlId="formPostContent">

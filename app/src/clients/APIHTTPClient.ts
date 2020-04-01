@@ -3,10 +3,11 @@ import {
   API_GATEWAY_ENDPOINT,
   LOCAL_API_GATEWAY_ENDPOINT,
   POST_PATH,
-  USER_PATH
+  USER_PATH,
+  USER_ID
 } from "../config.json";
-import { PostProps } from "../components/Post";
-import * as Quill from "quill";
+import { PostData } from "../types/Post";
+import { UserData } from "../types/User";
 const ENDPOINT =
   window.location.hostname === "localhost"
     ? LOCAL_API_GATEWAY_ENDPOINT
@@ -14,24 +15,17 @@ const ENDPOINT =
 const USER_REQUEST_URL = ENDPOINT + USER_PATH;
 const POST_REQUEST_URL = ENDPOINT + POST_PATH;
 
-type PostSubmission = {
-  title: string | undefined;
-  content: string | Quill.DeltaStatic | undefined;
-  username: string | undefined;
-  tags: Set<string> | undefined;
-};
-
 class APIHTTPClient {
   constructor() {
     this.getUser = this.getUser.bind(this);
     this.getPost = this.getPost.bind(this);
     this.getPostsByUser = this.getPostsByUser.bind(this);
     this.getUserByUsername = this.getUserByUsername.bind(this);
-    this.getUsername = this.getUsername.bind(this);
+    this.getDefaultUser = this.getDefaultUser.bind(this);
     this.submitPost = this.submitPost.bind(this);
   }
 
-  getUser(id: string) {
+  getUser(id: string): Promise<UserData> {
     return axios
       .get(USER_REQUEST_URL, {
         params: {
@@ -47,16 +41,19 @@ class APIHTTPClient {
       .catch(e => console.error(e));
   }
 
-  getUserByUsername(username: string) {
-    return {
-      id: "1234567",
-      username: "lahiyam",
-      createdAt: 123456
-    };
+  getUserByUsername(username: string): Promise<UserData> {
+    return axios
+      .get(USER_PATH, {
+        params: {
+          username: username
+        }
+      })
+      .then(response => response.data)
+      .catch(e => console.error(e));
   }
 
-  getUsername(): string {
-    return "lahiyam";
+  getDefaultUser(): Promise<UserData> {
+    return this.getUser(USER_ID);
   }
 
   getPost(id: string | null) {
@@ -66,7 +63,10 @@ class APIHTTPClient {
           id: id
         }
       })
-      .then(response => response.data)
+      .then(response => {
+        response.data.content = JSON.parse(response.data.content);
+        return response.data;
+      })
       .catch(e => console.error(e));
   }
 
@@ -82,9 +82,15 @@ class APIHTTPClient {
       .catch(e => console.error(e));
   }
 
-  submitPost(postObj: PostSubmission): PostProps {
-    console.log(postObj);
-    return null;
+  submitPost(postData: PostData) {
+    return axios
+      .post(POST_REQUEST_URL, {
+        userId: USER_ID,
+        title: postData.title,
+        content: JSON.stringify(postData.content)
+      })
+      .then(response => response.data)
+      .catch(e => console.error(e));
   }
 }
 

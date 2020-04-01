@@ -2,5 +2,6 @@
   "API_GATEWAY_ENDPOINT": "https://blog.api.lahiyam.com",
   "LOCAL_API_GATEWAY_ENDPOINT": "http://localhost:3000/dev",
   "POST_PATH": "/post",
-  "USER_PATH": "/user"
+  "USER_PATH": "/user",
+  "USER_ID": "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b"
 }

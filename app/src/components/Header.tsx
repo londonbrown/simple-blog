@@ -17,20 +17,22 @@ export default class extends Component<HeaderProps> {
   render() {
     return (
       <div className={this.props.className}>
-        <Navbar>
+        <Navbar expand="md" variant={"dark"} className="px-md-0">
           <Navbar.Brand href="/">חי</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Item>
-              <Nav.Link href="#">Posts</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#">Tutorials</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#">Recommendations</Nav.Link>
-            </Nav.Item>
-          </Nav>
-          <Nav className="ml-auto mr-2">
+          <Navbar.Collapse>
+            <Nav className="mr-auto">
+              <Nav.Item>
+                <Nav.Link href="https://www.youtube.com">YouTube</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#">Tutorials</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#">Recommendations</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+          <Nav className="ml-auto mr-lg-2 mr-sm-0">
             <LinkContainer to={AppRoutes.NEW}>
               <Nav.Link>
                 <Nav.Item>
@@ -46,14 +48,16 @@ export default class extends Component<HeaderProps> {
             </LinkContainer>
           </Nav>
           <Form inline>
-            <InputGroup>
-              <FormControl type="text" placeholder="Search" />
-              <InputGroup.Append>
-                <Button variant={"secondary"} className={"py-0"}>
-                  <MaterialIcon className={"align-middle"} icon={"search"} />
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
+            <Navbar.Collapse>
+              <InputGroup>
+                <FormControl type="text" placeholder="Search" />
+                <InputGroup.Append>
+                  <Button variant={"secondary"} className={"py-0"}>
+                    <MaterialIcon className={"align-middle"} icon={"search"} />
+                  </Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </Navbar.Collapse>
           </Form>
         </Navbar>
       </div>

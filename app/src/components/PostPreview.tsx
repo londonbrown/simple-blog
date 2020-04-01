@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import { PostData } from "./Editor";
 import Alert from "react-bootstrap/Alert";
 import { Button } from "react-bootstrap";
 import MaterialIcon from "@material/react-material-icon";
 import Post from "./Post";
-import Quill from "quill";
+import { PostData } from "../types/Post";
+import GlobalContext from "../contexts/GlobalContext";
 
 type PostPreviewProps = {
   postData: PostData;
   onEditor: () => void;
+  onSave: () => void;
 };
 
 export default class PostPreview extends Component<PostPreviewProps> {
+  static contextType = GlobalContext;
   render() {
     return (
       <>
@@ -27,7 +29,7 @@ export default class PostPreview extends Component<PostPreviewProps> {
           <div className="d-flex justify-content-end">
             <Button
               onClick={this.props.onEditor}
-              variant="outline-secondary"
+              variant="outline-info"
               className="mr-2"
             >
               <MaterialIcon style={{ verticalAlign: "middle" }} icon="edit" />
@@ -35,7 +37,7 @@ export default class PostPreview extends Component<PostPreviewProps> {
                 Editor
               </span>
             </Button>
-            <Button variant="primary">
+            <Button variant="info" onClick={this.props.onSave}>
               <MaterialIcon style={{ verticalAlign: "middle" }} icon="save" />
               <span className={"ml-1"} style={{ verticalAlign: "middle" }}>
                 Save
@@ -47,6 +49,9 @@ export default class PostPreview extends Component<PostPreviewProps> {
           title={this.props.postData.title}
           content={this.props.postData.content}
           tags={this.props.postData.tags}
+          username={
+            this.context.defaultUser && this.context.defaultUser.username
+          }
         />
       </>
     );

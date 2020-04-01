@@ -5,7 +5,10 @@
   "description": "A simple blog powered by a frontend single page application with backend serverless DynamoDB API",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bin/scripts/offline.js"
+    "start": "node bin/scripts/offline.js",
+    "offline-api": "cd api && npm run offline",
+    "offline-app": "cd app && npm run start",
+    "offline": "concurrently \"npm:offline-*\" "
   },
   "repository": {
     "type": "git",
