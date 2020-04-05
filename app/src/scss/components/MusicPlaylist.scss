@@ -1,0 +1,23 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+.music-playlist {
+  @include media-breakpoint-down(md) {
+    height: 300px;
+    width: 300px;
+  }
+  @include media-breakpoint-up(md) {
+    height: 348px;
+    width: 348px;
+  }
+  iframe.music-playlist-embedded-player {
+    @include media-breakpoint-down(md) {
+      height: 300px;
+      width: 300px;
+    }
+    @include media-breakpoint-up(md) {
+      height: 348px;
+      width: 348px;
+    }
+  }
+}

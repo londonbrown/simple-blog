@@ -8,6 +8,7 @@ import { Button, InputGroup } from "react-bootstrap";
 import MaterialIcon from "@material/react-material-icon";
 import { LinkContainer } from "react-router-bootstrap";
 import AppRoutes from "../routes/AppRoutes.enum";
+import { YOUTUBE_CHANNEL_URL } from "../config.json";
 
 type HeaderProps = {
   className?: string;
@@ -22,13 +23,7 @@ export default class extends Component<HeaderProps> {
           <Navbar.Collapse>
             <Nav className="mr-auto">
               <Nav.Item>
-                <Nav.Link href="https://www.youtube.com">YouTube</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="#">Tutorials</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="#">Recommendations</Nav.Link>
+                <Nav.Link href={YOUTUBE_CHANNEL_URL}>YouTube</Nav.Link>
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>

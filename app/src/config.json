@@ -3,5 +3,7 @@
   "LOCAL_API_GATEWAY_ENDPOINT": "http://localhost:3000/dev",
   "POST_PATH": "/post",
   "USER_PATH": "/user",
-  "USER_ID": "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b"
+  "USER_ID": "fcb0cf58-36e0-4d4c-8aa2-f399503eff0b",
+  "YOUTUBE_CHANNEL_URL": "https://www.youtube.com/channel/UCqYiG8tku2RuKMNQOJBF2bQ",
+  "YOUTUBE_PLAYLIST_ID": "PL3AYrgZNAOadL8UnquKGZ1osgeo9rnOOt"
 }

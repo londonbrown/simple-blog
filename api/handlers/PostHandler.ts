@@ -1,10 +1,13 @@
 import PostRequest, { Post } from "../db/PostRequest";
 import DynamoDBMapper from "../db/DynamoDBMapper";
+import S3Client from "../clients/S3Client";
+import S3ImageManager from "./util/S3ImageManager";
 
 import { APIGatewayProxyHandler } from "aws-lambda";
 import "source-map-support/register";
 
 const postRequest = new PostRequest(DynamoDBMapper);
+const s3ImageManager = new S3ImageManager(S3Client);
 export const index: APIGatewayProxyHandler = async (event, _context) => {
   try {
     const { httpMethod } = event;
@@ -75,9 +78,6 @@ async function updatePost(body) {
 }
 
 async function createPost(body) {
-  // TODO check if userId exists
-  // TODO check if title is valid
-  // TODO sanitize inputs
   if (!body.hasOwnProperty("userId")) {
     throw Error("POST /post userId attribute not specified in request");
   } else if (!body.hasOwnProperty("title")) {
@@ -91,5 +91,24 @@ async function createPost(body) {
   post.content = body.content;
   post.tags = body.tags;
   post.createdAt = body.createdAt;
+  // check for and upload photos to s3, then replace image links.
+  // or just return original content if not photos
+  post.content = await uploadPhotosFromPost(post);
   return postRequest.createPost(post);
+}
+
+async function uploadPhotosFromPost(post: Post) {
+  const content = JSON.parse(post.content);
+  if (typeof content === "object") {
+    content.ops = content.ops.map(op => {
+      if (op.hasOwnProperty("insert") && op.insert.hasOwnProperty("image")) {
+        op.insert.image =
+          "//bucket.com/" +
+          s3ImageManager.uploadImageFromBase64String(op.insert.image);
+      }
+      return op;
+    });
+    post.content = JSON.stringify(content);
+  }
+  return post.content;
 }

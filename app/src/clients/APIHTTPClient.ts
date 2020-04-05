@@ -31,6 +31,9 @@ class APIHTTPClient {
         params: {
           id: id
         },
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
         timeout: 3000,
         responseType: "json",
         withCredentials: false
@@ -46,6 +49,9 @@ class APIHTTPClient {
       .get(USER_PATH, {
         params: {
           username: username
+        },
+        headers: {
+          "Access-Control-Allow-Origin": "*"
         }
       })
       .then(response => response.data)
@@ -61,6 +67,9 @@ class APIHTTPClient {
       .get(POST_REQUEST_URL, {
         params: {
           id: id
+        },
+        headers: {
+          "Access-Control-Allow-Origin": "*"
         }
       })
       .then(response => {
@@ -76,6 +85,9 @@ class APIHTTPClient {
         params: {
           userId: userId,
           createdAt: createdAt
+        },
+        headers: {
+          "Access-Control-Allow-Origin": "*"
         }
       })
       .then(response => response.data)
@@ -84,11 +96,19 @@ class APIHTTPClient {
 
   submitPost(postData: PostData) {
     return axios
-      .post(POST_REQUEST_URL, {
-        userId: USER_ID,
-        title: postData.title,
-        content: JSON.stringify(postData.content)
-      })
+      .post(
+        POST_REQUEST_URL,
+        {
+          userId: USER_ID,
+          title: postData.title,
+          content: JSON.stringify(postData.content)
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      )
       .then(response => response.data)
       .catch(e => console.error(e));
   }

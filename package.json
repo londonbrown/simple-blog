@@ -4,27 +4,21 @@
   "private": true,
   "description": "A simple blog powered by a frontend single page application with backend serverless DynamoDB API",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bin/scripts/offline.js",
     "offline-api": "cd api && npm run offline",
     "offline-app": "cd app && npm run start",
-    "offline": "concurrently \"npm:offline-*\" "
+    "offline": "concurrently \"npm:offline-*\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lahiyam/simple-blog.git"
-  },
-  "devDependencies": {
-    "chalk": "^3.0.0",
-    "serverless": "^1.61.3",
-    "serverless-mocha-plugin": "^1.11.0",
-    "serverless-offline": "^5.12.1",
-    "serverless-webpack": "^5.3.1"
   },
   "author": "lahiyam",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lahiyam/simple-blog/issues"
   },
-  "homepage": "https://github.com/lahiyam/simple-blog#readme"
+  "homepage": "https://github.com/lahiyam/simple-blog#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
 }

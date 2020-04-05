@@ -3,6 +3,7 @@ import { Button, Col, Jumbotron, Row } from "react-bootstrap";
 import Post from "./Post";
 import PostSummary from "./PostSummary";
 import GlobalContext from "../contexts/GlobalContext";
+import MusicPlaylist from "./MusicPlaylist";
 
 type HomeState = {
   posts: Array<any>;
@@ -79,26 +80,31 @@ export default class Home extends Component<HomeProps, HomeState> {
   render() {
     const latestPost = this.state.posts.length > 0 && (
       <>
-        <hr className="my-2" />
-        <p>View latest post</p>
         <p className="lead">
           <Button
             color="primary"
             onClick={this.showLatestPost}
             href={this.state.posts[0].link}
           >
-            {this.state.posts[0].title}
+            Latest Post: {this.state.posts[0].title}
           </Button>
         </p>
       </>
     );
     return (
       <div className={this.props.className}>
-        <Jumbotron>
-          <h1 className="display-4">lahiyam</h1>
-          <p className="lead display-3">Nonsensical whisperings</p>
-          {latestPost}
-        </Jumbotron>
+        <Row>
+          <Col sm={"12"} xl={"8"}>
+            <Jumbotron>
+              <h1 className="display-4">lahiyam</h1>
+              <p className="lead display-3">hello, world</p>
+              {latestPost}
+            </Jumbotron>
+          </Col>
+          <Col>
+            <MusicPlaylist className="mx-auto mb-2 mb-lg-0" />
+          </Col>
+        </Row>
         <Row className="mt-0">
           <Col className="mt-0">
             {this.state.latestPost && (

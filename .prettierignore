@@ -1,0 +1,5 @@
+.prettierignore
+*.map
+node_modules/
+*.LICENSE
+*.zip

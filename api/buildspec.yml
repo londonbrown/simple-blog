@@ -1,0 +1,18 @@
+# AWS CodeBuild buildspec.yml https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+
+phases:
+  install:
+    commands:
+      - npm install --silent --no-progress -g npm
+      - npm install --silent --no-progress -g serverless
+  pre_build:
+    commands:
+      - npm install --silent --no-progress
+  build:
+    commands:
+      - echo "this would be where we would build..."
+
+artifacts:
+  files:
+    - api/serverless.yml
+    - api/.serverless/**/*
