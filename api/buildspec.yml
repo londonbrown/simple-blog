@@ -10,7 +10,7 @@ phases:
       - npm install --silent --no-progress
   build:
     commands:
-      - echo "this would be where we would build..."
+      - echo "this would be where we would build...."
 
 artifacts:
   files:
