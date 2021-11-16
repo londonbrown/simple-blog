@@ -14,7 +14,7 @@
     "@aws/dynamodb-data-mapper": "^0.7.3",
     "@aws/dynamodb-data-mapper-annotations": "^0.7.3",
     "@babel/runtime": "^7.9.2",
-    "aws-sdk": "^2.648.0",
+    "aws-sdk": "^2.814.0",
     "sanitize": "^2.1.0",
     "source-map-support": "^0.5.16",
     "typescript": "^3.8.3"
